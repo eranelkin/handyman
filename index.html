@@ -226,9 +226,9 @@
         align-items: center;
         gap: 8px;
         background: none;
-        border: 2px solid rgba(0, 0, 0, 0.22);
+        border: 2px solid #0a6eae;
         border-radius: 30px;
-        color: #1a1a1a;
+        color: #0a6eae;
         font-family: "Heebo", sans-serif;
         font-size: 0.92rem;
         font-weight: 700;
@@ -240,8 +240,8 @@
         white-space: nowrap;
       }
       .nav-menu-btn:hover {
-        background: rgba(0, 0, 0, 0.07);
-        border-color: rgba(0, 0, 0, 0.35);
+        background: rgba(10, 110, 174, 0.1);
+        border-color: #0a6eae;
       }
       .nav-menu-btn .menu-lines {
         display: flex;
@@ -252,7 +252,7 @@
         display: block;
         width: 18px;
         height: 2px;
-        background: #1a1a1a;
+        background: #0a6eae;
         border-radius: 2px;
       }
 
@@ -509,6 +509,21 @@
     ========================================= */
       #services {
         background: linear-gradient(to right, #035280 0%, #1b7ab1 100%);
+        height: auto;
+        min-height: 100vh;
+        overflow: visible;
+      }
+
+      .services-why-block {
+        margin-top: 32px;
+        width: 100%;
+      }
+      .services-why-title {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 16px;
+        text-align: center;
       }
 
       .services-grid {
@@ -1713,7 +1728,7 @@
         <!-- Text content -->
         <text
           x="58%"
-          y="400"
+          y="390"
           fill="#041926"
           font-size="88"
           text-anchor="middle"
@@ -1722,7 +1737,7 @@
         </text>
         <text
           x="58%"
-          y="520"
+          y="510"
           fill="#041926"
           font-size="108"
           font-weight="bold"
@@ -1732,30 +1747,31 @@
         </text>
         <text
           x="58%"
-          y="640"
+          y="630"
           fill="#041926"
           font-size="82"
           text-anchor="middle"
         >
-          מהנדס תוכנה עם ידי זהב
+          מהנדס תוכנה עם
         </text>
         <text
           x="58%"
-          y="770"
-          fill="#086eae"
-          font-size="82"
+          y="740"
+          fill="#041926"
+          font-size="94"
           text-anchor="middle"
+          font-weight="bold"
         >
-          מקווה שאוכל
+          ידי זהב
         </text>
         <text
-          x="54%"
-          y="870"
+          x="58%"
+          y="840"
           fill="#086eae"
-          font-size="82"
+          font-size="86"
           text-anchor="middle"
         >
-          לעזור :)
+          אשמח לעזור :)
         </text>
       </svg>
 
@@ -1883,6 +1899,33 @@
             </p>
           </article>
         </div>
+
+        <div class="services-why-block">
+          <h3 class="services-why-title fade-up">למה מאות משפחות בוחרות בי?</h3>
+          <div class="services-grid">
+            <article class="service-card fade-up">
+              <span class="service-icon">🕐</span>
+              <h3 class="service-title">מגיע בזמן</h3>
+              <p class="service-desc">
+                אמרתי 9 בבוקר — אני שם ב-9. הזמן שלכם יקר, ואני מכבד את זה.
+              </p>
+            </article>
+            <article class="service-card fade-up">
+              <span class="service-icon">🧹</span>
+              <h3 class="service-title">משאיר הכל נקי</h3>
+              <p class="service-desc">
+                מתייחס לבית שלכם בכבוד. מסדר אחרי כל עבודה — תמיד.
+              </p>
+            </article>
+            <article class="service-card fade-up">
+              <span class="service-icon">💬</span>
+              <h3 class="service-title">מחיר ברור</h3>
+              <p class="service-desc">
+                הצעת מחיר לפני שמתחילים. אין תוספות נסתרות — אף פעם.
+              </p>
+            </article>
+          </div>
+        </div>
       </div>
       <div class="scroll-cue" aria-hidden="true">&#8595;</div>
     </section>
@@ -2005,55 +2048,7 @@
     </section>
 
     <!-- =============================================
-       SECTION 4 — WHY ME
-  ============================================== -->
-    <section id="why-me" class="page-section">
-      <div class="section-body">
-        <h2 class="section-title fade-up">למה מאות משפחות בוחרות בי?</h2>
-
-        <div class="why-grid">
-          <div class="why-item fade-up">
-            <span class="why-icon">🕐</span>
-            <h3 class="why-title">מגיע בזמן</h3>
-            <p class="why-text">
-              אמרתי 9 בבוקר — אני שם ב-9. הזמן שלכם יקר, ואני מכבד את זה.
-            </p>
-          </div>
-
-          <div class="why-item fade-up">
-            <span class="why-icon">🧹</span>
-            <h3 class="why-title">משאיר הכל נקי</h3>
-            <p class="why-text">
-              מתייחס לבית שלכם בכבוד. מסדר אחרי כל עבודה — תמיד.
-            </p>
-          </div>
-
-          <div class="why-item fade-up">
-            <span class="why-icon">💬</span>
-            <h3 class="why-title">מחיר ברור</h3>
-            <p class="why-text">
-              הצעת מחיר לפני שמתחילים. אין תוספות נסתרות — אף פעם.
-            </p>
-          </div>
-        </div>
-
-        <blockquote class="personal-note fade-up">
-          <p class="personal-note-text">
-            פתחתי את העסק הזה כי האמנתי שכל בעל בית ראוי למישהו שאפשר לסמוך עליו
-            באמת. מישהו שעונה לטלפון, מגיע כשאומר שיגיע, ועושה את העבודה עם
-            גאווה. זה מה שאני עושה — כל יום.
-          </p>
-          <!-- TODO: החלף בשמך האמיתי -->
-          <footer class="personal-note-sig">
-            — [שם], בעלים ואיש מקצוע ראשי
-          </footer>
-        </blockquote>
-      </div>
-      <div class="scroll-cue" aria-hidden="true">&#8595;</div>
-    </section>
-
-    <!-- =============================================
-       SECTION 5 — REVIEWS CAROUSEL
+       SECTION 4 — REVIEWS CAROUSEL
   ============================================== -->
     <section id="reviews" class="page-section">
       <div class="section-body">
@@ -2474,22 +2469,8 @@
       "use strict";
 
       // ——— SECTION IDs for side-dot navigation ———
-      var SECTIONS = [
-        "hero",
-        "services",
-        "gallery",
-        "why-me",
-        "reviews",
-        "contact",
-      ];
-      var SECTION_LABELS = [
-        "ראשי",
-        "גלריה",
-        "שירותים",
-        "למה אני",
-        "ביקורות",
-        "צרו קשר",
-      ];
+      var SECTIONS = ["hero", "services", "gallery", "reviews", "contact"];
+      var SECTION_LABELS = ["ראשי", "שירותים", "גלריה", "ביקורות", "צרו קשר"];
 
       // ——— MENU OVERLAY (תפריט button → full-screen overlay) ———
       (function () {
