@@ -1,0 +1,2867 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="שירותי אחזקה ותיקונים מקצועיים — אינסטלציה, חשמל, נגרות, צביעה ועוד. מגיע בזמן, עובד נקי, מחיר ברור."
+    />
+    <!-- TODO: החלף בשמך האמיתי -->
+    <title>שירותי תחזוקה ותיקונים | [שם]</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* =========================================
+       RESET & BASE
+    ========================================= */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        font-size: 16px;
+        /* Full-page scroll snap — each section fills the viewport and snaps into place */
+        scroll-snap-type: y mandatory;
+        scroll-behavior: smooth;
+        height: 100%;
+      }
+
+      body {
+        font-family: "Heebo", sans-serif;
+        color: #333;
+        background: #fff;
+        line-height: 1.6;
+        direction: rtl;
+        text-align: right;
+        overflow-x: hidden;
+        height: 100%;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: "Heebo", sans-serif;
+        font-weight: 700;
+        line-height: 1.2;
+        color: #1a1a1a;
+      }
+
+      a {
+        color: inherit;
+      }
+      img {
+        display: block;
+      }
+      button {
+        font-family: "Heebo", sans-serif;
+        cursor: pointer;
+      }
+
+      /* =========================================
+       FULL-PAGE SECTIONS
+       Every section = 100vh, snaps to top of viewport
+    ========================================= */
+      .page-section {
+        height: 100vh;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+        overflow: hidden;
+        position: relative;
+      }
+
+      /* Inner wrapper centers content below the fixed 68px nav */
+      .section-body {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 78px 24px 24px; /* top = nav height + breathing room */
+        max-width: 1200px;
+        margin: 0 auto;
+        width: 100%;
+      }
+
+      .section-title {
+        font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+        font-weight: 900;
+        color: #1a1a1a;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+
+      .section-subtitle {
+        font-size: 1rem;
+        color: #666;
+        text-align: center;
+        margin-bottom: 32px;
+        max-width: 560px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      /* Scroll-down caret — visible in each section except the last */
+      .scroll-cue {
+        position: absolute;
+        bottom: 22px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 10;
+        animation: cue-bounce 1.6s ease-in-out infinite;
+        opacity: 0.4;
+        font-size: 1.6rem;
+        color: inherit;
+        pointer-events: none;
+      }
+
+      @keyframes cue-bounce {
+        0%,
+        100% {
+          transform: translateX(-50%) translateY(0);
+        }
+        50% {
+          transform: translateX(-50%) translateY(7px);
+        }
+      }
+
+      /* Fade-up entrance animation */
+      .fade-up {
+        opacity: 0;
+        transform: translateY(26px);
+        transition:
+          opacity 0.5s ease,
+          transform 0.7s ease;
+      }
+      .fade-up.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* =========================================
+       FIXED NAVIGATION
+    ========================================= */
+      #navbar {
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        z-index: 1000;
+        height: 68px;
+        background: transparent;
+        /* Fade in/out based on whether the hero section is visible */
+        transition:
+          opacity 0.45s ease,
+          transform 0.45s ease;
+      }
+
+      /* Nav is hidden whenever the page is NOT at the top (hero out of view) */
+      #navbar.nav-hidden {
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(-10px);
+      }
+
+      .nav-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        direction: ltr; /* explicit: first child = visual LEFT, last = visual RIGHT */
+        height: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+
+      /* "הצעת מחיר" — LEFT side (RTL end), dark pill button */
+      .nav-quote-btn {
+        display: inline-flex;
+        align-items: center;
+        background: #1a1a1a;
+        color: #ffd700;
+        text-decoration: none;
+        font-family: "Heebo", sans-serif;
+        font-size: 0.92rem;
+        font-weight: 700;
+        padding: 9px 22px;
+        border-radius: 30px;
+        transition:
+          background 0.2s,
+          transform 0.2s;
+        white-space: nowrap;
+      }
+      .nav-quote-btn:hover {
+        background: #2d2d2d;
+        transform: translateY(-1px);
+      }
+
+      /* "תפריט" — anchored to the right edge of the navbar */
+      #menuBtn {
+        position: absolute;
+        right: 5%;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      .nav-menu-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: none;
+        border: 2px solid rgba(0, 0, 0, 0.22);
+        border-radius: 30px;
+        color: #1a1a1a;
+        font-family: "Heebo", sans-serif;
+        font-size: 0.92rem;
+        font-weight: 700;
+        padding: 7px 18px;
+        cursor: pointer;
+        transition:
+          background 0.2s,
+          border-color 0.2s;
+        white-space: nowrap;
+      }
+      .nav-menu-btn:hover {
+        background: rgba(0, 0, 0, 0.07);
+        border-color: rgba(0, 0, 0, 0.35);
+      }
+      .nav-menu-btn .menu-lines {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .nav-menu-btn .menu-lines span {
+        display: block;
+        width: 18px;
+        height: 2px;
+        background: #1a1a1a;
+        border-radius: 2px;
+      }
+
+      /* Full-screen menu overlay */
+      .nav-overlay {
+        position: fixed;
+        inset: 0;
+        background: #1a1a1a;
+        z-index: 2000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.38s ease;
+      }
+      .nav-overlay.open {
+        opacity: 1;
+        pointer-events: all;
+      }
+
+      .overlay-close {
+        position: absolute;
+        top: 24px;
+        right: 24px; /* same corner as תפריט button (RTL start = right) */
+        background: none;
+        border: 2px solid rgba(255, 255, 255, 0.25);
+        color: #fff;
+        border-radius: 50%;
+        width: 46px;
+        height: 46px;
+        font-size: 1.2rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+          border-color 0.2s,
+          background 0.2s;
+      }
+      .overlay-close:hover {
+        border-color: #ffd700;
+        background: rgba(255, 215, 0, 0.1);
+      }
+
+      .overlay-nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 22px;
+      }
+      .overlay-nav a {
+        color: #fff;
+        text-decoration: none;
+        font-size: clamp(1.6rem, 4vw, 2.4rem);
+        font-weight: 700;
+        transition:
+          color 0.2s,
+          transform 0.2s;
+        display: block;
+      }
+      .overlay-nav a:hover {
+        color: #ffd700;
+        transform: translateY(-2px);
+      }
+
+      .overlay-quote {
+        margin-top: 36px;
+        display: inline-flex;
+        align-items: center;
+        background: #ffd700;
+        color: #1a1a1a;
+        text-decoration: none;
+        font-family: "Heebo", sans-serif;
+        font-size: 1.1rem;
+        font-weight: 700;
+        padding: 14px 36px;
+        border-radius: 30px;
+        transition: background 0.2s;
+      }
+      .overlay-quote:hover {
+        background: #e6c200;
+      }
+
+      /* =========================================
+       SIDE DOT NAVIGATION (fixed, shows section progress)
+    ========================================= */
+      .side-dots {
+        display: none;
+        position: fixed;
+        left: 18px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 500;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .side-dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: transparent;
+        border: 2px solid rgba(0, 0, 0, 0.28);
+        cursor: pointer;
+        transition: all 0.3s;
+        padding: 0;
+      }
+      .side-dot.active {
+        background: #1a1a1a;
+        border-color: #1a1a1a;
+        transform: scale(1.3);
+      }
+      /* Invert dot color on dark sections */
+      .side-dots.on-dark .side-dot {
+        border-color: rgba(255, 255, 255, 0.4);
+      }
+      .side-dots.on-dark .side-dot.active {
+        background: #ffd700;
+        border-color: #ffd700;
+      }
+
+      /* =========================================
+       SECTION 1 — HERO (yellow, tilnet-style)
+    ========================================= */
+      #hero {
+        background: linear-gradient(to right, #fcc638 0%, #fedd53 100%);
+      }
+
+      /* Person photo: large transparent PNG standing on yellow background, centered, bottom-anchored */
+      .hero-photo-wrap {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        height: 96%;
+        z-index: 2;
+        pointer-events: none;
+        user-select: none;
+      }
+      .hero-photo-img {
+        height: 100%;
+        width: auto;
+        object-fit: contain;
+        object-position: bottom center;
+        display: block;
+      }
+      .hero-photo-fallback {
+        height: 100%;
+        width: 400px;
+        display: none;
+        align-items: flex-end;
+        justify-content: center;
+        font-size: 32vh;
+        padding-bottom: 10px;
+      }
+
+      /* LEFT side (RTL end): Brand name — like tilnet logo on the left */
+      .hero-brand-left {
+        position: absolute;
+        left: 10%;
+        top: 35%;
+        transform: translateY(-50%);
+        z-index: 10;
+        max-width: 300px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+      }
+      .hero-brand-img {
+        width: clamp(240px, 32vw, 440px);
+        height: auto;
+        display: block;
+      }
+      .hero-brand-text {
+        font-size: clamp(1.8rem, 3vw, 3rem);
+        font-weight: 900;
+        color: #1a1a1a;
+        direction: ltr;
+        text-align: left;
+        line-height: 1.2;
+        letter-spacing: -0.5px;
+      }
+
+      /* RIGHT side (RTL start): SVG speech bubble, upper area */
+      .hero-bubble-svg {
+        position: absolute;
+        right: 17%;
+        top: 0%;
+        z-index: 10;
+        width: clamp(240px, 42vw, 470px);
+        height: auto;
+        filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.1));
+      }
+
+      /* Scroll cue overrides per section background */
+      #hero .scroll-cue {
+        color: #1a1a1a;
+        opacity: 0.3;
+      }
+
+      /* =========================================
+       SECTION 2 — TRUST BAR (dark)
+    ========================================= */
+      #trust-bar {
+        background: linear-gradient(to right, #064169 0%, #0d6ea6 100%);
+      }
+      #trust-bar .section-body {
+        justify-content: center;
+      }
+
+      .trust-bar-inner {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        width: 100%;
+      }
+
+      .trust-stat {
+        text-align: center;
+        color: #fff;
+        padding: 30px 10px;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+      }
+      .trust-stat-icon {
+        font-size: 2.4rem;
+        display: block;
+        margin-bottom: 14px;
+      }
+      .trust-stat-number {
+        display: block;
+        font-size: 3rem;
+        font-weight: 900;
+        color: #ffd700;
+        line-height: 1;
+        margin-bottom: 8px;
+      }
+      .trust-stat-label {
+        font-size: 0.9rem;
+        color: #999;
+      }
+
+      #trust-bar .scroll-cue {
+        color: #fff;
+        opacity: 0.25;
+      }
+
+      /* =========================================
+       SECTION 3 — SERVICES (light grey)
+    ========================================= */
+      #services {
+        background: linear-gradient(to right, #035280 0%, #1b7ab1 100%);
+      }
+
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        width: 100%;
+      }
+
+      .service-card {
+        background: #fff;
+        border-radius: 14px;
+        padding: 24px 18px;
+        text-align: center;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+        transition: all 0.28s ease;
+        border: 2px solid transparent;
+        position: relative;
+        overflow: hidden;
+      }
+      .service-card::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        height: 3px;
+        background: #ffd700;
+        transform: scaleX(0);
+        transition: transform 0.28s;
+        transform-origin: right;
+      }
+      .service-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.1);
+      }
+      .service-card:hover::after {
+        transform: scaleX(1);
+      }
+
+      .service-icon {
+        font-size: 2.4rem;
+        display: block;
+        margin-bottom: 10px;
+      }
+      .service-title {
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin-bottom: 6px;
+      }
+      .service-desc {
+        font-size: 0.82rem;
+        color: #666;
+        line-height: 1.55;
+      }
+
+      /* =========================================
+       SECTION 4 — WHY ME (white)
+    ========================================= */
+      #why-me {
+        background: #ffffff;
+      }
+
+      .why-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+        width: 100%;
+        margin-bottom: 26px;
+      }
+
+      .why-item {
+        text-align: center;
+        padding: 24px 18px;
+        border-radius: 14px;
+        background: #fafafa;
+        border: 1px solid #f0f0f0;
+        transition: box-shadow 0.3s;
+      }
+      .why-item:hover {
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+      }
+
+      .why-icon {
+        font-size: 2.4rem;
+        display: block;
+        margin-bottom: 12px;
+      }
+      .why-title {
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin-bottom: 8px;
+      }
+      .why-text {
+        font-size: 0.85rem;
+        color: #555;
+        line-height: 1.65;
+      }
+
+      .personal-note {
+        background: linear-gradient(135deg, #fffbea, #fff8d2);
+        border: 2px solid #ffd700;
+        border-radius: 18px;
+        padding: 22px 30px;
+        position: relative;
+        width: 100%;
+      }
+      .personal-note::before {
+        content: "״";
+        position: absolute;
+        top: -10px;
+        right: 28px;
+        font-size: 4rem;
+        color: #ffd700;
+        font-family: Georgia, serif;
+        line-height: 1;
+      }
+      .personal-note-text {
+        font-size: 0.92rem;
+        color: #333;
+        line-height: 1.8;
+        font-style: italic;
+        margin-bottom: 12px;
+      }
+      .personal-note-sig {
+        font-size: 0.88rem;
+        font-weight: 700;
+        color: #1a1a1a;
+      }
+
+      /* =========================================
+       SECTION 5 — REVIEWS (light grey)
+    ========================================= */
+      #reviews {
+        background: linear-gradient(to right, #f9f9f9 0%, #ffffff 100%);
+        overflow: hidden;
+      }
+
+      .carousel-wrapper {
+        position: relative;
+        max-width: 740px;
+        margin: 0 auto;
+        width: 100%;
+      }
+
+      .carousel-track-container {
+        overflow: hidden;
+        border-radius: 20px;
+      }
+
+      .carousel-track {
+        display: flex;
+        transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        direction: ltr; /* LTR so translateX math is predictable */
+      }
+
+      .review-card {
+        background: #fff;
+        border-radius: 20px;
+        padding: 30px 36px;
+        box-shadow: 0 4px 22px rgba(0, 0, 0, 0.07);
+        min-width: 100%;
+        border-top: 4px solid #ffd700;
+        direction: rtl;
+      }
+      .review-quote {
+        font-size: 4rem;
+        color: #ffd700;
+        line-height: 0.4;
+        font-family: Georgia, serif;
+        display: block;
+        margin-bottom: 16px;
+      }
+      .review-text {
+        font-size: 0.97rem;
+        color: #333;
+        line-height: 1.8;
+        margin-bottom: 18px;
+        font-style: italic;
+      }
+      .review-stars {
+        display: block;
+        font-size: 1.1rem;
+        margin-bottom: 12px;
+        letter-spacing: 2px;
+      }
+      .review-meta {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .review-avatar {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: #ffd700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+        font-weight: 900;
+        color: #1a1a1a;
+        flex-shrink: 0;
+      }
+      .review-name {
+        font-weight: 700;
+        color: #1a1a1a;
+        font-size: 0.9rem;
+      }
+      .review-loc {
+        font-size: 0.8rem;
+        color: #888;
+      }
+      .review-date {
+        margin-inline-start: auto;
+        font-size: 0.78rem;
+        color: #bbb;
+        white-space: nowrap;
+      }
+
+      /* Carousel nav: direction:ltr so first child = visually LEFT (=next in RTL), last = RIGHT (=prev) */
+      .carousel-nav {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        margin-top: 20px;
+        direction: ltr;
+      }
+      .carousel-btn {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        border: 2px solid #ccc;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        transition: all 0.2s;
+        color: #444;
+      }
+      .carousel-btn:hover {
+        background: #ffd700;
+        border-color: #ffd700;
+        color: #1a1a1a;
+      }
+
+      .carousel-dots {
+        display: flex;
+        gap: 7px;
+        align-items: center;
+      }
+      .carousel-dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: #ddd;
+        border: none;
+        transition: all 0.25s;
+        padding: 0;
+      }
+      .carousel-dot.active {
+        background: #ffd700;
+        transform: scale(1.3);
+      }
+
+      /* =========================================
+       SECTION 6 — CONTACT (white)
+    ========================================= */
+      #contact {
+        background: #ffffff;
+      }
+
+      .contact-buttons {
+        display: flex;
+        gap: 14px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: 30px;
+      }
+
+      .contact-big-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        text-decoration: none;
+        padding: 14px 26px;
+        border-radius: 12px;
+        font-size: 1rem;
+        font-weight: 700;
+        font-family: "Heebo", sans-serif;
+        transition: all 0.2s;
+        white-space: nowrap;
+        justify-content: center;
+      }
+      .cbtn-dark {
+        background: #1a1a1a;
+        color: #fff;
+      }
+      .cbtn-dark:hover {
+        background: #2d2d2d;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 22px rgba(0, 0, 0, 0.2);
+      }
+      .cbtn-green {
+        background: #25d366;
+        color: #fff;
+      }
+      .cbtn-green:hover {
+        background: #1bb955;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 22px rgba(37, 211, 102, 0.3);
+      }
+      .cbtn-yellow {
+        background: #ffd700;
+        color: #1a1a1a;
+      }
+      .cbtn-yellow:hover {
+        background: #e6c200;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 22px rgba(255, 215, 0, 0.4);
+      }
+
+      .contact-form-wrapper {
+        max-width: 500px;
+        margin: 0 auto;
+        width: 100%;
+      }
+
+      .contact-form {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .form-label {
+        font-weight: 600;
+        font-size: 0.88rem;
+        color: #1a1a1a;
+      }
+
+      .form-input,
+      .form-textarea {
+        padding: 11px 16px;
+        border: 2px solid #e5e5e5;
+        border-radius: 9px;
+        font-family: "Heebo", sans-serif;
+        font-size: 0.95rem;
+        color: #333;
+        background: #fafafa;
+        transition: border-color 0.2s;
+        direction: rtl;
+        text-align: right;
+        width: 100%;
+      }
+      .form-input:focus,
+      .form-textarea:focus {
+        outline: none;
+        border-color: #ffd700;
+        background: #fff;
+        box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.12);
+      }
+      .form-textarea {
+        min-height: 90px;
+        resize: vertical;
+      }
+
+      .btn-submit {
+        background: #ffd700;
+        color: #1a1a1a;
+        border: none;
+        padding: 14px 28px;
+        border-radius: 9px;
+        font-family: "Heebo", sans-serif;
+        font-size: 1rem;
+        font-weight: 700;
+        transition: all 0.2s;
+      }
+      .btn-submit:hover {
+        background: #e6c200;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 18px rgba(255, 215, 0, 0.4);
+      }
+
+      .form-success {
+        display: none;
+        background: #e8f9ee;
+        border: 1px solid #c3e6cb;
+        color: #1a5c30;
+        padding: 12px 18px;
+        border-radius: 9px;
+        text-align: center;
+        font-weight: 600;
+        margin-top: 10px;
+      }
+
+      .form-note {
+        text-align: center;
+        font-size: 0.88rem;
+        color: #666;
+        margin-top: 14px;
+      }
+      .form-note a {
+        color: #25d366;
+        font-weight: 700;
+        text-decoration: none;
+      }
+      .form-note a:hover {
+        text-decoration: underline;
+      }
+
+      /* =========================================
+       FOOTER (not a snap section — accessible by scrolling past contact)
+    ========================================= */
+      footer {
+        background: #111;
+        color: #fff;
+        padding: 48px 0 28px;
+        /* No scroll-snap-align — footer is reached by over-scrolling past the last section */
+      }
+
+      .footer-inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 28px;
+        margin-bottom: 36px;
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 0 24px;
+      }
+
+      .footer-name {
+        font-size: 1.4rem;
+        font-weight: 900;
+        color: #ffd700;
+        display: block;
+        margin-bottom: 8px;
+      }
+      .footer-tagline {
+        font-size: 0.82rem;
+        color: #666;
+        max-width: 240px;
+        line-height: 1.6;
+      }
+
+      .footer-col-title {
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: #555;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 14px;
+      }
+
+      .footer-links-list {
+        list-style: none;
+      }
+      .footer-links-list li {
+        margin-bottom: 8px;
+      }
+      .footer-links-list a {
+        text-decoration: none;
+        color: #aaa;
+        font-size: 0.9rem;
+        transition: color 0.2s;
+      }
+      .footer-links-list a:hover {
+        color: #ffd700;
+      }
+
+      .footer-social {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .footer-social a {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        border: 2px solid #2a2a2a;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        font-size: 1.1rem;
+        color: #aaa;
+        transition: all 0.2s;
+      }
+      .footer-social a:hover {
+        border-color: #ffd700;
+        color: #ffd700;
+        transform: translateY(-2px);
+      }
+
+      .footer-bottom {
+        border-top: 1px solid #1e1e1e;
+        padding: 20px 24px 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      .footer-copy {
+        font-size: 0.8rem;
+        color: #555;
+      }
+      .footer-credit {
+        font-size: 0.75rem;
+        color: #444;
+      }
+
+      /* =========================================
+       FLOATING WHATSAPP — bottom-LEFT (RTL natural bottom-start)
+    ========================================= */
+      .float-whatsapp {
+        position: fixed;
+        bottom: 26px;
+        left: 26px;
+        z-index: 9999;
+        width: 60px;
+        height: 60px;
+        background: #25d366;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 20px rgba(37, 211, 102, 0.45);
+        text-decoration: none;
+        animation: wa-pulse 2.2s ease-in-out infinite;
+      }
+      .float-whatsapp:hover {
+        transform: scale(1.1);
+        animation: none;
+        box-shadow: 0 6px 26px rgba(37, 211, 102, 0.6);
+      }
+      .float-whatsapp svg {
+        width: 32px;
+        height: 32px;
+        fill: #fff;
+      }
+
+      /* Tooltip appears to the RIGHT of the button */
+      .float-tooltip {
+        position: absolute;
+        left: 70px;
+        bottom: 50%;
+        transform: translateY(50%);
+        background: #1a1a1a;
+        color: #fff;
+        padding: 8px 13px;
+        border-radius: 8px;
+        font-size: 0.82rem;
+        font-family: "Heebo", sans-serif;
+        white-space: nowrap;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s;
+        direction: rtl;
+      }
+      /* Arrow pointing LEFT toward the button */
+      .float-tooltip::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        right: 100%;
+        transform: translateY(-50%);
+        border: 7px solid transparent;
+        border-right-color: #1a1a1a;
+      }
+      .float-whatsapp:hover .float-tooltip {
+        opacity: 1;
+      }
+
+      @keyframes wa-pulse {
+        0%,
+        100% {
+          box-shadow: 0 4px 20px rgba(37, 211, 102, 0.45);
+        }
+        50% {
+          box-shadow:
+            0 4px 28px rgba(37, 211, 102, 0.7),
+            0 0 0 9px rgba(37, 211, 102, 0.1);
+        }
+      }
+
+      /* =========================================
+       SECTION 2 — GALLERY
+    ========================================= */
+      .gallery-section {
+        position: relative;
+      }
+
+      .gallery-bg-video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 0;
+        opacity: 1;
+        filter: none;
+        transform: scale(1.06);
+      }
+
+      .gallery-video-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0,0,0,0.35);
+        z-index: 1;
+        opacity: 1;
+      }
+
+      /* subtle golden glow in background */
+      .gallery-section::before {
+        content: "";
+        position: absolute;
+        top: -15%;
+        right: 18%;
+        width: 560px;
+        height: 560px;
+        background: radial-gradient(
+          circle,
+          rgba(255, 213, 0, 0.07) 0%,
+          transparent 62%
+        );
+        z-index: 2;
+        pointer-events: none;
+      }
+
+      .gallery-body {
+        position: relative;
+        z-index: 3;
+      }
+
+      .gallery-heading {
+        color: #fff !important;
+      }
+      .gallery-sub {
+        color: rgba(255, 255, 255, 0.6) !important;
+        margin-bottom: 16px !important;
+      }
+
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        gap: 10px;
+        width: 100%;
+        height: 52vh;
+      }
+
+      .gallery-item {
+        position: relative;
+        border-radius: 14px;
+        overflow: hidden;
+        cursor: pointer;
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        transition:
+          transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+          box-shadow 0.4s ease,
+          border-color 0.3s ease;
+      }
+
+      .gallery-item:hover {
+        transform: scale(1.04) translateZ(0);
+        box-shadow:
+          0 22px 58px rgba(0, 0, 0, 0.62),
+          0 0 0 1px rgba(255, 213, 0, 0.25);
+        border-color: rgba(255, 213, 0, 0.28);
+        z-index: 10;
+      }
+
+      .gallery-item--wide {
+        grid-column: span 2;
+      }
+
+      .gallery-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.5s ease;
+      }
+      .gallery-item:hover .gallery-img {
+        transform: scale(1.06);
+      }
+
+      .gallery-placeholder {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        font-size: 2.6rem;
+        transition:
+          filter 0.4s ease,
+          transform 0.5s ease;
+      }
+
+      .gallery-item:hover .gallery-placeholder {
+        filter: brightness(1.22);
+        transform: scale(1.06);
+      }
+
+      .gallery-placeholder-label {
+        font-size: 0.68rem;
+        font-family: "Heebo", sans-serif;
+        color: rgba(255, 255, 255, 0.28);
+        text-align: center;
+        padding: 0 14px;
+        direction: ltr;
+        line-height: 1.5;
+      }
+
+      .gallery-type-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: rgba(0, 0, 0, 0.38);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 20px;
+        padding: 3px 10px;
+        font-family: "Heebo", sans-serif;
+        font-size: 0.68rem;
+        color: rgba(255, 255, 255, 0.85);
+        font-weight: 600;
+      }
+
+      .gallery-caption {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 36px 14px 13px;
+        background: linear-gradient(
+          to top,
+          rgba(0, 0, 0, 0.78) 0%,
+          transparent 100%
+        );
+        color: #fff;
+        font-family: "Heebo", sans-serif;
+        font-size: 0.87rem;
+        font-weight: 700;
+        opacity: 0;
+        transform: translateY(6px);
+        transition:
+          opacity 0.3s ease,
+          transform 0.3s ease;
+        direction: rtl;
+        text-align: right;
+      }
+
+      .gallery-item:hover .gallery-caption {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .gallery-play-btn {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 52px;
+        height: 52px;
+        background: rgba(255, 255, 255, 0.14);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border: 2px solid rgba(255, 255, 255, 0.38);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 1.2rem;
+        padding-left: 3px;
+        transition:
+          transform 0.38s cubic-bezier(0.34, 1.56, 0.64, 1),
+          background 0.3s ease,
+          border-color 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+
+      .gallery-item:hover .gallery-play-btn {
+        transform: translate(-50%, -50%) scale(1.18);
+        background: rgba(255, 213, 0, 0.22);
+        border-color: #ffd700;
+        box-shadow: 0 0 28px rgba(255, 213, 0, 0.3);
+      }
+
+      /* ——— Lightbox ——— */
+      .gallery-lightbox {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.96);
+        z-index: 9000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.28s ease;
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+      }
+
+      .gallery-lightbox.open {
+        opacity: 1;
+        pointer-events: all;
+      }
+
+      .gallery-lightbox-inner {
+        position: relative;
+        width: min(88vw, 860px);
+      }
+
+      .gallery-lightbox-media {
+        width: 100%;
+        aspect-ratio: 16/9;
+        border-radius: 16px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 14px;
+        font-size: 5rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .gallery-lightbox-media-hint {
+        font-family: "Heebo", sans-serif;
+        font-size: 0.82rem;
+        color: rgba(255, 255, 255, 0.32);
+        direction: ltr;
+      }
+
+      .gallery-lightbox-title {
+        color: #fff;
+        font-family: "Heebo", sans-serif;
+        font-size: 1rem;
+        font-weight: 700;
+        margin-top: 14px;
+        direction: rtl;
+        text-align: right;
+      }
+
+      .gallery-lightbox-counter {
+        text-align: center;
+        font-family: "Heebo", sans-serif;
+        font-size: 0.76rem;
+        color: rgba(255, 255, 255, 0.32);
+        margin-top: 8px;
+        direction: ltr;
+      }
+
+      .gallery-lightbox-close {
+        position: absolute;
+        top: -50px;
+        right: 0;
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        color: #fff;
+        font-size: 0.95rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+          background 0.2s,
+          transform 0.25s ease;
+      }
+
+      .gallery-lightbox-close:hover {
+        background: rgba(255, 255, 255, 0.22);
+        transform: scale(1.12) rotate(90deg);
+      }
+
+      .gallery-lightbox-nav {
+        position: absolute;
+        top: calc(50% - 26px);
+        width: 46px;
+        height: 46px;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 50%;
+        color: #fff;
+        font-size: 1.5rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+          background 0.2s,
+          transform 0.2s;
+      }
+
+      .gallery-lightbox-nav:hover {
+        background: rgba(255, 255, 255, 0.22);
+        transform: scale(1.12);
+      }
+
+      .gallery-lightbox-prev {
+        right: -64px;
+      }
+      .gallery-lightbox-next {
+        left: -64px;
+      }
+
+      /* =========================================
+       RESPONSIVE — TABLET (≤ 1100px)
+    ========================================= */
+      @media (max-width: 1100px) {
+        .hero-brand-left {
+          max-width: 200px;
+          left: 3%;
+        }
+        .hero-brand-text {
+          font-size: 1.8rem;
+        }
+        .hero-bubble-svg {
+          width: clamp(170px, 26vw, 300px);
+          right: 2%;
+        }
+      }
+
+      /* =========================================
+       RESPONSIVE — MOBILE (≤ 768px)
+       Disable snap, sections become scrollable content
+    ========================================= */
+      @media (max-width: 768px) {
+        html {
+          scroll-snap-type: none;
+        }
+
+        .page-section {
+          height: auto;
+          min-height: 100vh;
+          overflow: visible;
+          scroll-snap-align: none;
+          scroll-snap-stop: unset;
+        }
+
+        .section-body {
+          padding: 88px 20px 40px;
+          justify-content: flex-start;
+        }
+
+        .scroll-cue {
+          display: none;
+        }
+        .side-dots {
+          display: none;
+        }
+
+        /* Nav stays transparent on mobile too — overlay handles navigation */
+
+        /* Hero mobile */
+        #hero {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: flex-start;
+          padding-top: 80px;
+        }
+
+        .hero-photo-wrap {
+          position: relative;
+          left: auto;
+          transform: none;
+          height: 55vw;
+          max-height: 320px;
+          order: 1;
+          margin: 0 auto;
+        }
+
+        .hero-bubble-svg {
+          position: relative;
+          right: auto;
+          top: auto;
+          width: 90%;
+          max-width: 380px;
+          order: 2;
+          margin: 16px auto 0;
+        }
+
+        .hero-brand-left {
+          position: relative;
+          left: auto;
+          top: auto;
+          transform: none;
+          max-width: 100%;
+          width: 100%;
+          order: 3;
+          margin-top: 16px;
+          text-align: center;
+        }
+        .hero-brand-text {
+          font-size: 2rem;
+          text-align: center;
+        }
+
+        /* Trust bar */
+        .trust-bar-inner {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .trust-stat-number {
+          font-size: 2.2rem;
+        }
+
+        /* Services */
+        .services-grid {
+          grid-template-columns: 1fr;
+        }
+
+        /* Why me */
+        .why-grid {
+          grid-template-columns: 1fr;
+          gap: 14px;
+        }
+
+        /* Contact */
+        .contact-buttons {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .contact-big-btn {
+          min-width: unset;
+        }
+
+        /* Footer */
+        .footer-inner {
+          flex-direction: column;
+          gap: 24px;
+        }
+        .footer-bottom {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        /* Float WA */
+        .float-whatsapp {
+          bottom: 18px;
+          left: 18px;
+          width: 54px;
+          height: 54px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .trust-bar-inner {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- =============================================
+       FIXED NAVIGATION
+  ============================================== -->
+    <nav id="navbar">
+      <div class="nav-inner">
+        <!-- LEFT: Quote CTA -->
+        <a href="#contact" class="nav-quote-btn">הצעת מחיר</a>
+
+        <!-- RIGHT: Menu trigger -->
+        <button
+          class="nav-menu-btn"
+          id="menuBtn"
+          aria-label="פתח תפריט"
+          aria-expanded="false"
+        >
+          <span class="menu-lines" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </span>
+          תפריט
+        </button>
+      </div>
+    </nav>
+
+    <!-- Full-screen menu overlay (opened by תפריט button) -->
+    <div
+      class="nav-overlay"
+      id="navOverlay"
+      aria-hidden="true"
+      role="dialog"
+      aria-label="תפריט ראשי"
+    >
+      <button class="overlay-close" id="overlayClose" aria-label="סגור תפריט">
+        ✕
+      </button>
+      <nav class="overlay-nav">
+        <a href="#hero" data-overlay-link>ראשי</a>
+        <a href="#services" data-overlay-link>שירותים</a>
+        <a href="#why-me" data-overlay-link>למה אני?</a>
+        <a href="#reviews" data-overlay-link>ביקורות</a>
+        <a href="#contact" data-overlay-link>צרו קשר</a>
+      </nav>
+      <!-- TODO: החלף במספר הטלפון שלך -->
+      <a href="tel:0501234567" class="overlay-quote">📞 התקשרו עכשיו</a>
+    </div>
+
+    <!-- =============================================
+       SECTION 1 — HERO
+       Yellow background, tilnet-style:
+       Person photo centered on yellow, brand right, bubble left
+  ============================================== -->
+    <section id="hero" class="page-section">
+      <!--
+      Person photo — transparent PNG placed directly on yellow background.
+      Save your photo (Image 1, the transparent-background PNG) as: ./images/me.png
+      The transparent areas show the yellow background naturally.
+    -->
+      <div class="hero-photo-wrap" id="heroPhotoWrap">
+        <img
+          src="./images/me.png"
+          alt="<!-- TODO: החלף בשמך האמיתי --> [שם] — בעל עסק לתחזוקה ותיקונים"
+          class="hero-photo-img"
+          id="heroPhoto"
+          onerror="
+            document.getElementById('heroPhoto').style.display = 'none';
+            document.getElementById('heroFallback').style.display = 'flex';
+          "
+        />
+        <div class="hero-photo-fallback" id="heroFallback">🔧</div>
+      </div>
+
+      <!-- LEFT side (RTL end): Brand name -->
+      <div class="hero-brand-left fade-up">
+        <img src="./images/ef.png" alt="handyman" class="hero-brand-img" />
+        <!-- <div class="hero-brand-text">ידי זהב</div> -->
+      </div>
+
+      <svg
+        class="hero-bubble-svg fade-up"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 1200 1200"
+        font-family="'Heebo', sans-serif"
+      >
+        <g>
+          <g>
+            <g>
+              <g>
+                <path
+                  fill="#414042"
+                  d="M362.998,417.381c-17.282-33.518-17.496-72.136,1.807-104.868      c17.545-29.751,47.921-51.341,81.532-58.826c39.868-8.878,79.62,7.199,105.771,37.669c2.583,3.009,14.878-1.414,12.026-4.81      c-38.547-45.888,55.328-69.016,83.766-75.889c26.356-6.37,53.217-10.914,80.149-14.022c4.394-0.507,8.794-0.96,13.202-1.33      c-1.823,0.153,0.82-0.059,1.269-0.092c0.719-0.052,1.437-0.097,2.157-0.14c1.202-0.071,2.406-0.125,3.61-0.143      c12.017-0.177,24.162,0.789,36.122,1.848c32.349,2.866,65.591,8.214,95.474,21.44c25.388,11.237,48.505,31.564,44.506,61.837      c-0.867,6.563-2.909,12.932-5.419,19.036c-1.32,3.212,6.132,2.102,7.156,1.863c34.711-8.114,66.267-26.935,102.003-31.311      c16.15-1.978,32.635,0.727,44.961,11.986c14.583,13.321,20.231,34.73,20.241,53.859c0.016,33.145-16.521,65.504-35.465,91.742      c-18.701,25.901-43.066,50.172-72.133,64.142c2.993,0.762,5.986,1.523,8.979,2.285c4.114-3.777,6.851-3.829,13.016-3.041      c8.128,1.039,15.928,4.282,23.277,7.764c17.765,8.417,33.961,20.318,48.966,32.913c11.955,10.034,23.458,20.881,32.362,33.771      c12.035,17.421,21.314,37.094,28.449,56.98c5.862,16.338,10.647,34.234,9.584,51.741c-0.981,16.143-9.686,31.532-22.021,41.775      c-23.749,19.72-60.05,17.264-88.044,9.916c-1.805-0.474-13.672,0.709-11.627,4.623c18.345,35.102,30.249,75.796,26.414,115.686      c-1.787,18.589-7.529,36.898-17.928,52.489c-11.333,16.992-27.938,29.484-46.586,37.485      c-12.444,5.339-26.346,7.467-40.799,8.326c-18.111,1.077-36.342,0.187-54.3-2.33c-17.433-2.444-34.853-6.588-50.852-14.072      c-12.301-5.754-24.613-14.528-29.592-27.667c-1.462-3.858-12.063-0.715-12.851,2.65c-8.536,36.43-40.645,60.685-72.355,76.787      c-34.889,17.717-74.267,27.94-113.137,31.565c-29.557,2.757-68.309,2.526-86.575-25.063      c-8.125-12.272-10.245-28.069-11.397-42.397c-1.458-18.128-1.003-36.376-1.563-54.542c-0.119-3.872-10.247-0.122-11.524,0.976      c-14.442,12.415-32.143,21.335-50.203,27.154c-19.057,6.14-40.387,9.254-59.853,3.139c-18.82-5.913-33.817-21.326-33.502-41.755      c0.295-19.125,10.93-36.576,13.087-55.444c1.273-11.138-1.527-22.056-9.82-29.941c-8.444-8.029-21.457-9.365-32.524-9.053      c-25.968,0.732-50.375,11.025-74.773,18.786c-1.543,0.491-6.369,1.995-5.695,4.512c0.649,2.422,5.651,1.549,7.188,1.06      c18.568-5.906,36.748-13.191,56.043-16.49c17.962-3.07,39.088-1.616,45.595,18.581c5.629,17.472-5.005,37.376-9.344,54.022      c-2.296,8.809-3.568,18.08-1.835,27.104c1.829,9.526,8.042,17.498,15.303,23.617c21.316,17.964,52.342,16.74,77.93,11.145      c25.899-5.663,52.37-17.574,72.569-34.939c-3.841,0.325-7.683,0.651-11.524,0.976c0.604,19.586,0.065,39.266,1.938,58.793      c1.49,15.537,5.058,31.311,14.975,43.763c11.205,14.069,29.52,19.73,46.663,22.09c17.99,2.477,36.434,1.478,54.408-0.593      c40.208-4.633,80.338-16.213,116.445-34.548c31.786-16.141,64.243-40.704,75.019-76.25c0.491-1.618,0.898-3.26,1.284-4.905      c-4.284,0.883-8.568,1.766-12.851,2.65c5.227,13.794,17.576,22.749,30.317,29.142c16.324,8.191,34.692,12.426,52.641,15.186      c18.909,2.908,38.231,3.846,57.337,2.956c15.633-0.729,31.616-2.579,46.406-7.932c19.988-7.235,38.493-18.856,52.602-34.847      c12.329-13.974,20.271-31.393,24.208-49.507c8.389-38.594-0.732-79.843-16.221-115.437c-2.419-5.558-5.074-11.01-7.88-16.381      c-3.876,1.541-7.751,3.082-11.627,4.623c36.552,9.594,82.596,10.028,112.069-17.271c14.73-13.643,22.12-32.167,21.284-52.075      c-0.926-22.033-8.926-43.857-17.894-63.762c-7.466-16.571-16.379-33.436-28.2-47.362c-11.057-13.027-24.48-24.287-38.051-34.582      c-15.067-11.429-31.536-22.166-49.461-28.501c-14.226-5.027-31.493-6.469-44.035,3.472c-0.376,0.31-0.741,0.633-1.094,0.969      c-1.204,1.105-2.217,2.816-0.102,3.647c2.908,1.142,6.451-0.098,9.081-1.362c39.119-18.801,70.9-54.511,91.824-91.878      c19.797-35.355,31.994-83.126,6.021-118.726c-18.634-25.54-52.876-23.427-80.283-16.972      c-29.631,6.979-56.88,21.601-86.453,28.514c2.385,0.621,4.771,1.242,7.156,1.863c5.634-13.702,8.236-28.905,3.499-43.264      c-4.183-12.682-13.847-22.733-24.589-30.23c-26.39-18.417-60.325-25.578-91.609-30.224c-15.278-2.269-30.673-3.666-46.092-4.509      c-8.535-0.467-17.117-0.945-25.654-0.331c-23.341,1.678-46.616,5.323-69.589,9.687c-29.988,5.696-60.234,12.82-88.408,24.79      c-17.605,7.48-44.794,20.219-47.279,42.106c-1.12,9.869,3.894,18.769,10.04,26.086c4.009-1.603,8.017-3.207,12.026-4.81      c-24.949-29.069-61.047-44.325-99.298-41.409c-36.185,2.758-70.746,19.642-95.616,45.975      c-15.412,16.319-26.53,36.915-30.656,59.035c-4.518,24.224,0.346,48.954,11.552,70.687      C352.176,424.83,364.604,420.497,362.998,417.381L362.998,417.381z"
+                />
+              </g>
+            </g>
+            <g>
+              <g>
+                <path
+                  fill="#414042"
+                  d="M307.297,692.784c-37.26-27.795-67.922-66.956-66.109-115.555c1.527-40.938,23.926-78.5,49.116-109.466      c20.286-24.937,43.867-47.224,68.765-67.494c6.786-5.524-3.793-8.635-8.3-4.966c-32.297,26.293-62.515,55.612-86.501,89.81      c-22.821,32.538-39.652,71.422-35.443,111.898c4.504,43.308,34.836,77.639,68.398,102.674      C301.247,702.687,312.873,696.943,307.297,692.784L307.297,692.784z"
+                />
+              </g>
+            </g>
+          </g>
+          <g>
+            <g>
+              <path
+                fill="#414042"
+                d="M357.573,421.315c-19.713-38.279-17.237-81.992,5.947-118.143c20.353-31.735,56.035-55.717,94.258-57.121     c31.637-1.162,60.289,14.771,80.512,38.307c2.317,2.697,14.523-1.692,12.082-4.601c-42.355-50.481,72.061-74.264,100.95-80.265     c25.409-5.278,52.036-9.639,76.882-11.479c9.668-0.716,19.42-0.02,29.077,0.582c17.24,1.076,34.438,3.029,51.454,6.013     c27.677,4.854,57.444,12.476,80.11,29.874c9.453,7.256,17.031,16.672,20.443,28.204c3.919,13.243,1.044,27.141-4.078,39.618     c-1.196,2.913,6.17,1.565,7.023,1.365c37.55-8.791,72.37-31.405,111.753-31.854c19.389-0.221,35.922,9.243,45.525,26.065     c11.304,19.802,12.053,43.598,7.954,65.507c-5.621,30.042-20.175,58.48-37.995,83.054     c-16.392,22.606-37.215,44.453-62.674,56.727c3.23,0.304,6.46,0.609,9.691,0.913c4.935-4.516,11.737-3.601,17.901-2.338     c10.009,2.049,19.558,6.388,28.514,11.188c18.673,10.006,36.08,23.156,51.189,37.983c13.899,13.639,23.587,30.774,32,48.183     c10.434,21.589,19.217,45.378,20.526,69.521c1.385,25.546-13.76,49.736-37.45,59.571c-22.543,9.359-49.575,6.631-72.603,0.593     c-1.672-0.438-13.423,1.086-11.68,4.424c19.904,38.107,32.528,83.338,24.959,126.42c-7.263,41.34-38.207,75.712-79.068,84.863     c-13.485,3.02-27.677,3.506-41.44,3.461c-16.513-0.054-33.164-1.643-49.376-4.779c-24.335-4.707-58.857-14.116-68.717-40.048     c-1.28-3.365-12.126-0.215-12.823,2.754c-9.582,40.771-47.896,66.332-83.799,82.49c-37.776,17.002-80.705,26.9-122.184,27.044     c-28.263,0.098-58.798-6.821-70.673-35.294c-5.18-12.419-6.487-26.27-7.241-39.571c-0.914-16.12-0.665-32.289-1.162-48.423     c-0.103-3.338-10.307,0.272-11.45,1.254c-16.163,13.884-36.187,23.487-56.623,29.182c-21.035,5.862-45.246,7.274-64.782-3.998     c-9.373-5.408-17.359-13.817-20.664-24.232c-3.153-9.935-1.134-20.642,1.471-30.441c4.815-18.111,15.797-39.177,7.353-57.819     c-9.159-20.22-34.279-19.934-52.94-17.206c-21.801,3.188-42.268,11.474-63.147,18.078     c-61.103,19.326-120.918,43.935-175.927,77.017c-9.742,5.859-19.272,12.065-28.603,18.557c-2.093,1.457-1.597,3.149,0.907,3.385     c3.05,0.287,6.602-0.696,9.11-2.441c53.183-37.007,113.148-63.527,174.208-84.584c22.261-7.677,44.837-15.928,67.677-21.716     c18.897-4.789,45.332-8.618,55.832,12.363c9.125,18.234-3.309,41.045-7.874,58.875c-2.454,9.586-3.657,19.727-0.95,29.384     c2.837,10.121,10.815,18.335,19.329,24.052c18.355,12.322,42.335,12.584,63.388,9.227c22.915-3.654,45.443-12.415,65.207-24.502     c5.981-3.658,11.722-7.663,17.044-12.235c-3.817,0.418-7.633,0.836-11.45,1.254c0.651,21.156-0.118,42.493,2.471,63.541     c2.044,16.613,7.212,33.226,19.999,44.727c15.243,13.711,37.918,16.8,57.576,17.357c19.583,0.555,39.224-1.587,58.479-5.039     c37.565-6.733,75.052-18.867,108.11-38.153c28.498-16.625,56.218-40.775,64.071-74.189c-4.274,0.918-8.549,1.836-12.823,2.754     c5.795,15.241,20.224,24.496,34.462,30.915c18.565,8.371,39.187,12.287,59.313,14.557c39.2,4.421,80.964,2.816,115.89-17.231     c33.963-19.494,53.145-52.9,56.388-91.491c3.291-39.156-8.667-79.154-26.645-113.571c-3.893,1.475-7.786,2.95-11.68,4.424     c39.572,10.375,92.035,9.469,119.658-25.538c14.28-18.098,15.78-39.195,11.461-61.082c-4.714-23.89-14.802-46.971-26.674-68.118     c-6.779-12.075-14.52-23.351-24.359-33.128c-11.616-11.543-24.775-21.654-38.531-30.503     c-22.365-14.388-59.1-32.968-82.927-11.163c-1.638,1.499,0.449,2.505,1.784,2.631c2.699,0.254,5.5-0.557,7.906-1.717     c19.979-9.632,37.061-24.633,51.785-41.028c16.724-18.621,30.594-40.051,40.933-62.83c9.675-21.315,16.068-44.678,15.516-68.223     c-0.479-20.421-7.798-42.511-24.008-55.803c-21.473-17.608-53.291-12.237-77.839-5.613     c-27.114,7.317-52.511,20.421-79.841,26.819c2.341,0.455,4.682,0.91,7.023,1.365c6.099-14.857,8.569-31.366,2.225-46.561     c-5.736-13.74-17.724-23.815-30.277-31.161c-30.652-17.938-68.077-24.191-102.9-27.934c-22.979-2.47-45.638-3.531-68.6-0.997     c-30.077,3.32-60.043,8.635-89.415,15.899c-31.496,7.789-132.459,35.113-90.716,84.864c4.027-1.534,8.054-3.067,12.082-4.601     c-13.879-16.153-31.354-28.643-51.775-35.024c-18.479-5.774-38.547-5.857-57.382-1.833     c-38.896,8.311-73.314,33.141-93.554,67.353c-20.901,35.329-21.701,78.141-2.97,114.513     C346.546,428.37,358.905,423.9,357.573,421.315L357.573,421.315z"
+              />
+            </g>
+          </g>
+          <g>
+            <g>
+              <path
+                fill="#414042"
+                d="M54.139,882.156c41.023-38.857,82.504-77.406,127.313-111.912c43.425-33.44,90.359-63.254,141.915-82.448     c20.465-7.619,41.616-13.264,63.171-16.767c2.183-0.355,6.475-1.316,7.514-3.654c1.01-2.275-4.462-1.614-5.221-1.491     c-109.83,17.851-202.108,86.491-283.264,158.655c-21.424,19.05-42.331,38.673-63.143,58.386c-2.192,2.076,1.909,2.458,3.114,2.38     C48.434,885.115,51.97,884.211,54.139,882.156L54.139,882.156z"
+              />
+            </g>
+          </g>
+          <g>
+            <g>
+              <path
+                fill="#414042"
+                d="M294.544,687.154c-20.193-15.075-38.269-33.286-49.316-56.197c-8.706-18.055-11.65-38.187-9.542-58.041     c4.517-42.552,30.989-80.967,58.138-112.547c25.182-29.292,54.099-55.262,84.02-79.6c2.344-1.907-2.065-2.153-3.032-2.071     c-2.964,0.252-6.28,1.16-8.624,3.067c-33.068,26.897-64.838,55.821-91.829,88.922c-25.939,31.812-49.288,69.548-52.059,111.512     c-3.021,45.74,25.026,83.143,60.101,109.329C285.258,693.661,296.384,688.527,294.544,687.154L294.544,687.154z"
+              />
+            </g>
+          </g>
+        </g>
+        <!-- Text content -->
+        <text
+          x="58%"
+          y="400"
+          fill="#041926"
+          font-size="88"
+          text-anchor="middle"
+        >
+          נעים מאוד,
+        </text>
+        <text
+          x="58%"
+          y="520"
+          fill="#041926"
+          font-size="108"
+          font-weight="bold"
+          text-anchor="middle"
+        >
+          ערן אלקין,
+        </text>
+        <text
+          x="58%"
+          y="640"
+          fill="#041926"
+          font-size="82"
+          text-anchor="middle"
+        >
+          מהנדס תוכנה עם ידי זהב
+        </text>
+        <text
+          x="58%"
+          y="770"
+          fill="#086eae"
+          font-size="82"
+          text-anchor="middle"
+        >
+          מקווה שאוכל
+        </text>
+        <text
+          x="54%"
+          y="870"
+          fill="#086eae"
+          font-size="82"
+          text-anchor="middle"
+        >
+          לעזור :)
+        </text>
+      </svg>
+
+      <!-- RIGHT side (RTL start): SVG speech bubble, upper area, tail points down-left toward person -->
+      <!-- <svg
+        class="hero-bubble-svg fade-up"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 536 396"
+        style="transition-delay: 0.15s"
+        font-family="'Heebo', sans-serif"
+      >
+        <path
+          fill="#fee686"
+          stroke="#031925"
+          stroke-width="4"
+          d="M100 45 l 375 -23 a 37 38 0 0 1 37 38 l-2 232 a 26 30 0 0 1 -26 30 L 100 320 a 32 27 0 0 1 -32 -27 L 68 275 C 60 280 5 350 15 335 C 10 355 60 230 68 220 L 74 77 a 26 32 0 0 1 26 -32"
+        ></path>
+        <text
+          x="50%"
+          y="120"
+          fill="#041926"
+          dx="30"
+          font-size="48"
+          text-anchor="middle"
+        >
+          נעים מאוד,
+        </text>
+        <text
+          x="50%"
+          y="170"
+          fill="#041926"
+          dx="30"
+          font-size="48"
+          font-weight="bold"
+          text-anchor="middle"
+        >
+          ערן אלקין,
+        </text>
+        <text
+          x="50%"
+          y="220"
+          fill="#041926"
+          dx="30"
+          font-size="36"
+          text-anchor="middle"
+        >
+          מהנדס תוכנה עם ידי זהב
+        </text>
+        <text
+          x="50%"
+          y="270"
+          fill="#086eae"
+          dx="30"
+          font-size="36"
+          text-anchor="middle"
+        >
+          מקווה שאוכל לעזור :)
+        </text>
+      </svg> -->
+
+      <div class="scroll-cue" aria-hidden="true">&#8595;</div>
+    </section>
+
+    <!-- =============================================
+       SECTION 2 — GALLERY (video background + bento grid)
+  ============================================== -->
+    <section id="gallery" class="page-section gallery-section">
+      <!--
+        Background video — replace src with your own file.
+        Free stock: search "workshop tools slow motion" or "home renovation" on pexels.com
+        Suggested path: ./videos/bg-workshop.mp4
+      -->
+      <video class="gallery-bg-video" autoplay loop muted playsinline>
+        <source src="./videos/bg-workshop.mp4" type="video/mp4" />
+      </video>
+      <div class="gallery-video-overlay"></div>
+
+      <div class="section-body gallery-body">
+        <h2 class="section-title gallery-heading fade-up">הגלריה שלי</h2>
+        <p class="section-subtitle gallery-sub fade-up">
+          מבחר עבודות שביצעתי — כל תמונה וסרטון מספרים את הסיפור של עבודה שנעשתה
+          נכון
+        </p>
+
+        <div class="gallery-grid fade-up">
+          <!-- Item 1 — Photo, wide -->
+          <div
+            class="gallery-item gallery-item--wide"
+            data-idx="0"
+            data-type="photo"
+            data-label="שיפוץ מטבח מלא — אינסטלציה וצנרת"
+          >
+            <img
+              src="./images/gallery-1.jpg"
+              alt="שיפוץ מטבח מלא"
+              class="gallery-img"
+            />
+            <span class="gallery-type-badge">📷 תמונה</span>
+            <div class="gallery-caption">שיפוץ מטבח מלא — אינסטלציה וצנרת</div>
+          </div>
+
+          <!-- Item 2 — Video — replace with ./videos/gallery-1.mp4 -->
+          <div
+            class="gallery-item"
+            data-idx="1"
+            data-type="video"
+            data-label="סרטון — צביעת חדר מגורים"
+          >
+            <div
+              class="gallery-placeholder"
+              style="
+                background: linear-gradient(135deg, #1a0a3c 0%, #2d1a60 100%);
+              "
+            >
+              <span>🎬</span>
+              <span class="gallery-placeholder-label"
+                >video · replace with ./videos/gallery-1.mp4</span
+              >
+            </div>
+            <span class="gallery-type-badge">▶ וידאו</span>
+            <div class="gallery-play-btn">▶</div>
+            <div class="gallery-caption">סרטון — צביעת חדר מגורים</div>
+          </div>
+
+          <!-- Item 3 — Video — replace with ./videos/gallery-2.mp4 -->
+          <div
+            class="gallery-item"
+            data-idx="2"
+            data-type="video"
+            data-label="סרטון — תיקון חשמל לפני ואחרי"
+          >
+            <div
+              class="gallery-placeholder"
+              style="
+                background: linear-gradient(135deg, #0a2d20 0%, #0d5035 100%);
+              "
+            >
+              <span>⚡</span>
+              <span class="gallery-placeholder-label"
+                >video · replace with ./videos/gallery-2.mp4</span
+              >
+            </div>
+            <span class="gallery-type-badge">▶ וידאו</span>
+            <div class="gallery-play-btn">▶</div>
+            <div class="gallery-caption">סרטון — תיקון חשמל לפני ואחרי</div>
+          </div>
+
+          <!-- Item 4 — Photo, wide — replace with ./images/gallery-2.jpg -->
+          <div
+            class="gallery-item gallery-item--wide"
+            data-idx="3"
+            data-type="photo"
+            data-label="נגרות — מדפים בהתאמה אישית"
+          >
+            <div
+              class="gallery-placeholder"
+              style="
+                background: linear-gradient(135deg, #3d1a05 0%, #7a3d10 100%);
+              "
+            >
+              <span>🚪</span>
+              <span class="gallery-placeholder-label"
+                >photo · replace with ./images/gallery-2.jpg</span
+              >
+            </div>
+            <span class="gallery-type-badge">📷 תמונה</span>
+            <div class="gallery-caption">נגרות — מדפים בהתאמה אישית</div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="scroll-cue"
+        style="color: #fff; opacity: 0.22"
+        aria-hidden="true"
+      >
+        &#8595;
+      </div>
+    </section>
+
+    <!-- =============================================
+       SECTION 3 — SERVICES
+  ============================================== -->
+    <section id="services" class="page-section">
+      <div class="section-body">
+        <h2 class="section-title fade-up">מה אני יכול לתקן בשבילכם?</h2>
+        <p class="section-subtitle fade-up" style="margin-bottom: 24px">
+          מאינסטלציה ועד חשמל, מנגרות ועד צביעה — יש לי תשובה לכל בעיה.
+        </p>
+
+        <div class="services-grid">
+          <article class="service-card fade-up">
+            <span class="service-icon">🔧</span>
+            <h3 class="service-title">אינסטלציה</h3>
+            <p class="service-desc">
+              נזילות, צנרת, ברזים, לחץ מים — כל בעיה עם מים נפתרת.
+            </p>
+          </article>
+
+          <article class="service-card fade-up">
+            <span class="service-icon">⚡</span>
+            <h3 class="service-title">חשמל</h3>
+            <p class="service-desc">
+              שקעים, גופי תאורה, מפסקים ועבודות חשמל קלות בבית.
+            </p>
+          </article>
+
+          <article class="service-card fade-up">
+            <span class="service-icon">🚪</span>
+            <h3 class="service-title">נגרות</h3>
+            <p class="service-desc">
+              דלתות, מדפים, הרכבת רהיטים ותיקוני עץ — עבודה שמחזיקה.
+            </p>
+          </article>
+
+          <article class="service-card fade-up">
+            <span class="service-icon">🎨</span>
+            <h3 class="service-title">צביעה</h3>
+            <p class="service-desc">
+              גימורים פנימיים וצביעת חדרים — נקי, מדויק ומוסר בזמן.
+            </p>
+          </article>
+
+          <article class="service-card fade-up">
+            <span class="service-icon">🏠</span>
+            <h3 class="service-title">תיקונים כלליים</h3>
+            <p class="service-desc">
+              כל מה שהתקלקל בבית — אני אתקן. פשוט תתקשרו.
+            </p>
+          </article>
+
+          <article class="service-card fade-up">
+            <span class="service-icon">🛠️</span>
+            <h3 class="service-title">קריאות דחופות</h3>
+            <p class="service-desc">
+              מענה מהיר כשזה דחוף — כי חירום בבית לא מחכה.
+            </p>
+          </article>
+        </div>
+      </div>
+      <div class="scroll-cue" aria-hidden="true">&#8595;</div>
+    </section>
+
+    <!-- =============================================
+       SECTION 4 — WHY ME
+  ============================================== -->
+    <section id="why-me" class="page-section">
+      <div class="section-body">
+        <h2 class="section-title fade-up">למה מאות משפחות בוחרות בי?</h2>
+
+        <div class="why-grid">
+          <div class="why-item fade-up">
+            <span class="why-icon">🕐</span>
+            <h3 class="why-title">מגיע בזמן</h3>
+            <p class="why-text">
+              אמרתי 9 בבוקר — אני שם ב-9. הזמן שלכם יקר, ואני מכבד את זה.
+            </p>
+          </div>
+
+          <div class="why-item fade-up">
+            <span class="why-icon">🧹</span>
+            <h3 class="why-title">משאיר הכל נקי</h3>
+            <p class="why-text">
+              מתייחס לבית שלכם בכבוד. מסדר אחרי כל עבודה — תמיד.
+            </p>
+          </div>
+
+          <div class="why-item fade-up">
+            <span class="why-icon">💬</span>
+            <h3 class="why-title">מחיר ברור</h3>
+            <p class="why-text">
+              הצעת מחיר לפני שמתחילים. אין תוספות נסתרות — אף פעם.
+            </p>
+          </div>
+        </div>
+
+        <blockquote class="personal-note fade-up">
+          <p class="personal-note-text">
+            פתחתי את העסק הזה כי האמנתי שכל בעל בית ראוי למישהו שאפשר לסמוך עליו
+            באמת. מישהו שעונה לטלפון, מגיע כשאומר שיגיע, ועושה את העבודה עם
+            גאווה. זה מה שאני עושה — כל יום.
+          </p>
+          <!-- TODO: החלף בשמך האמיתי -->
+          <footer class="personal-note-sig">
+            — [שם], בעלים ואיש מקצוע ראשי
+          </footer>
+        </blockquote>
+      </div>
+      <div class="scroll-cue" aria-hidden="true">&#8595;</div>
+    </section>
+
+    <!-- =============================================
+       SECTION 5 — REVIEWS CAROUSEL
+  ============================================== -->
+    <section id="reviews" class="page-section">
+      <div class="section-body">
+        <h2 class="section-title fade-up">מה הלקוחות שלי אומרים</h2>
+        <p class="section-subtitle fade-up">
+          אנשים אמיתיים. עבודות אמיתיות. תוצאות אמיתיות.
+        </p>
+
+        <div class="carousel-wrapper fade-up">
+          <div class="carousel-track-container" id="carouselContainer">
+            <div class="carousel-track" id="carouselTrack">
+              <article class="review-card">
+                <span class="review-quote">״</span>
+                <p class="review-text">
+                  <!-- TODO: החלף בשמך האמיתי -->התקשרתי ל[שם] בגלל נזילה מתחת
+                  לכיור במטבח. הגיע תוך שעתיים, תיקן מהר, והמחיר היה בדיוק מה
+                  שאמר. המטבח היה יותר נקי כשעזב מאשר כשהגיע. ממליצה בחום!
+                </p>
+                <span class="review-stars">⭐⭐⭐⭐⭐</span>
+                <div class="review-meta">
+                  <div class="review-avatar">מ</div>
+                  <div>
+                    <div class="review-name">מיכל ר., תל אביב</div>
+                    <div class="review-loc">לקוחה מרוצה</div>
+                  </div>
+                  <span class="review-date">אפריל 2024</span>
+                </div>
+              </article>
+
+              <article class="review-card">
+                <span class="review-quote">״</span>
+                <p class="review-text">
+                  <!-- TODO: החלף בשמך האמיתי -->השתמשתי בהרבה אנשי תחזוקה לאורך
+                  השנים. [שם] הוא קטגוריה אחרת לגמרי. מנומס, דייקן, מקצועי. תיקן
+                  את דלת האמבטיה שלנו שהייתה שבורה חודשים תוך פחות מ-30 דקות.
+                  בכיתי שלא מצאתי אותו קודם.
+                </p>
+                <span class="review-stars">⭐⭐⭐⭐⭐</span>
+                <div class="review-meta">
+                  <div class="review-avatar">ד</div>
+                  <div>
+                    <div class="review-name">דני כ., רמת גן</div>
+                    <div class="review-loc">לקוח מרוצה</div>
+                  </div>
+                  <span class="review-date">מרץ 2024</span>
+                </div>
+              </article>
+
+              <article class="review-card">
+                <span class="review-quote">״</span>
+                <p class="review-text">
+                  <!-- TODO: החלף בשמך האמיתי -->סוף סוף מישהו שעונה לטלפון!
+                  הייתי בפאניקה אחרי שמדף קרס. [שם] הגיע באותו יום, תיקן הכל,
+                  ואפילו חיזק את שאר המדפים בחינם. שירות מדהים.
+                </p>
+                <span class="review-stars">⭐⭐⭐⭐⭐</span>
+                <div class="review-meta">
+                  <div class="review-avatar">י</div>
+                  <div>
+                    <div class="review-name">יעל ש., ראשון לציון</div>
+                    <div class="review-loc">לקוחה מרוצה</div>
+                  </div>
+                  <span class="review-date">פברואר 2024</span>
+                </div>
+              </article>
+
+              <article class="review-card">
+                <span class="review-quote">״</span>
+                <p class="review-text">
+                  עבודה מעולה בדירה החדשה שלנו. הרכיב את כל הרהיטים, תלה תמונות
+                  וווילונות, ותיקן כמה בעיות חשמל. איש אחד, יום אחד — הכל גמור.
+                </p>
+                <span class="review-stars">⭐⭐⭐⭐⭐</span>
+                <div class="review-meta">
+                  <div class="review-avatar">א</div>
+                  <div>
+                    <div class="review-name">אורן מ., חולון</div>
+                    <div class="review-loc">לקוח מרוצה</div>
+                  </div>
+                  <span class="review-date">ינואר 2024</span>
+                </div>
+              </article>
+
+              <article class="review-card">
+                <span class="review-quote">״</span>
+                <p class="review-text">
+                  <!-- TODO: החלף בשמך האמיתי -->מה שאני הכי אוהבת זה התקשורת.
+                  [שם] שלח לי הודעה כשהיה בדרך, הסביר הכל בבהירות, ושלח תמונות
+                  של העבודה הגמורה. 10 מתוך 10.
+                </p>
+                <span class="review-stars">⭐⭐⭐⭐⭐</span>
+                <div class="review-meta">
+                  <div class="review-avatar">ר</div>
+                  <div>
+                    <div class="review-name">רונית ב., פתח תקווה</div>
+                    <div class="review-loc">לקוחה מרוצה</div>
+                  </div>
+                  <span class="review-date">מאי 2024</span>
+                </div>
+              </article>
+
+              <article class="review-card">
+                <span class="review-quote">״</span>
+                <p class="review-text">
+                  אמא חד הורית וחששתי מזר בבית. מהשיחה הראשונה הרגשתי בנוח
+                  לחלוטין. אמין, נחמד, ועובד מצוין. מומלץ בחום לכל אחת.
+                </p>
+                <span class="review-stars">⭐⭐⭐⭐⭐</span>
+                <div class="review-meta">
+                  <div class="review-avatar">ש</div>
+                  <div>
+                    <div class="review-name">שירה ל., גבעתיים</div>
+                    <div class="review-loc">לקוחה מרוצה</div>
+                  </div>
+                  <span class="review-date">פברואר 2024</span>
+                </div>
+              </article>
+
+              <article class="review-card">
+                <span class="review-quote">״</span>
+                <p class="review-text">
+                  מענה מהיר, מחיר הוגן, תוצאה מושלמת. המקלחת שלי לא מטפטפת כבר 3
+                  חודשים. זה האיש שאתם שומרים במגעים.
+                </p>
+                <span class="review-stars">⭐⭐⭐⭐⭐</span>
+                <div class="review-meta">
+                  <div class="review-avatar">א</div>
+                  <div>
+                    <div class="review-name">אבי ט., בת ים</div>
+                    <div class="review-loc">לקוח מרוצה</div>
+                  </div>
+                  <span class="review-date">מרץ 2024</span>
+                </div>
+              </article>
+
+              <article class="review-card">
+                <span class="review-quote">״</span>
+                <p class="review-text">
+                  <!-- TODO: החלף בשמך האמיתי -->התקשרתי ל-3 בעלי מקצוע לפני
+                  [שם]. הוא היחיד שהגיע כשאמר שיגיע. העבודה הייתה מצוינת. עכשיו
+                  הוא המספר היחיד שאני מתקשרת אליו.
+                </p>
+                <span class="review-stars">⭐⭐⭐⭐⭐</span>
+                <div class="review-meta">
+                  <div class="review-avatar">ת</div>
+                  <div>
+                    <div class="review-name">תמר ג., הרצליה</div>
+                    <div class="review-loc">לקוחה מרוצה</div>
+                  </div>
+                  <span class="review-date">אפריל 2024</span>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <!--
+          Nav direction:ltr → first child (← next) is visually LEFT, last (→ prev) is visually RIGHT.
+          RTL convention: next is on the LEFT, previous is on the RIGHT.
+        -->
+          <div class="carousel-nav">
+            <button
+              class="carousel-btn"
+              id="carouselNext"
+              aria-label="ביקורת הבאה"
+            >
+              &#8592;
+            </button>
+            <div class="carousel-dots" id="carouselDots"></div>
+            <button
+              class="carousel-btn"
+              id="carouselPrev"
+              aria-label="ביקורת קודמת"
+            >
+              &#8594;
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="scroll-cue" aria-hidden="true">&#8595;</div>
+    </section>
+
+    <!-- =============================================
+       SECTION 6 — CONTACT
+  ============================================== -->
+    <section id="contact" class="page-section">
+      <div class="section-body">
+        <h2 class="section-title fade-up">בואו נתקן את זה ביחד</h2>
+        <p class="section-subtitle fade-up" style="margin-bottom: 22px">
+          אל תתנו לבעיות קטנות להפוך לגדולות. צרו קשר — אני עונה תוך דקות.
+        </p>
+
+        <div class="contact-buttons fade-up">
+          <!-- TODO: החלף במספר הטלפון שלך -->
+          <a href="tel:0501234567" class="contact-big-btn cbtn-dark"
+            >📞 התקשרו עכשיו</a
+          >
+          <!-- TODO: החלף במספר הווטסאפ שלך -->
+          <a
+            href="https://wa.me/972501234567"
+            class="contact-big-btn cbtn-green"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
+              />
+            </svg>
+            וואטסאפ
+          </a>
+          <!-- TODO: החלף באימייל שלך -->
+          <a href="mailto:your@email.com" class="contact-big-btn cbtn-yellow"
+            >✉️ שלחו מייל</a
+          >
+        </div>
+
+        <div class="contact-form-wrapper fade-up">
+          <form class="contact-form" id="contactForm" novalidate>
+            <div class="form-group">
+              <label class="form-label" for="formName">שם מלא</label>
+              <input
+                type="text"
+                id="formName"
+                name="name"
+                class="form-input"
+                placeholder="מה שמך?"
+                autocomplete="name"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="formPhone">טלפון</label>
+              <input
+                type="tel"
+                id="formPhone"
+                name="phone"
+                class="form-input"
+                placeholder="050-0000000"
+                autocomplete="tel"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="formMessage"
+                >במה אוכל לעזור?</label
+              >
+              <textarea
+                id="formMessage"
+                name="message"
+                class="form-textarea"
+                placeholder="תארו לי בקצרה מה הבעיה..."
+                required
+              ></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit">שלחו הודעה 📨</button>
+            <div class="form-success" id="formSuccess" role="alert">
+              ✅ תודה! קיבלתי את הודעתכם ואחזור אליכם בהקדם.
+            </div>
+          </form>
+
+          <p class="form-note">
+            <!-- TODO: החלף במספר הווטסאפ שלך -->
+            או פשוט
+            <a
+              href="https://wa.me/972501234567"
+              target="_blank"
+              rel="noopener noreferrer"
+              >שלחו לי וואטסאפ</a
+            >
+            — זה הרבה יותר מהיר 😊
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================
+       FOOTER (regular height, no snap — accessible by scrolling past contact)
+  ============================================== -->
+    <footer id="footer">
+      <div class="footer-inner">
+        <div>
+          <!-- TODO: החלף בשמך האמיתי -->
+          <span class="footer-name">🔧 [שם] — תיקונים ואחזקה</span>
+          <p class="footer-tagline">
+            אנשים לא קונים שירותים —<br />
+            הם קונים ביטחון שהבעיה שלהם תיפתר.
+          </p>
+        </div>
+
+        <div>
+          <p class="footer-col-title">ניווט מהיר</p>
+          <ul class="footer-links-list">
+            <li><a href="#services">שירותים</a></li>
+            <li><a href="#why-me">למה אני?</a></li>
+            <li><a href="#reviews">ביקורות</a></li>
+            <li><a href="#contact">צרו קשר</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <p class="footer-col-title">צרו קשר</p>
+          <div class="footer-social">
+            <!-- TODO: החלף במספר הווטסאפ שלך -->
+            <a
+              href="https://wa.me/972501234567"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="וואטסאפ"
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
+                />
+              </svg>
+            </a>
+            <!-- TODO: החלף במספר הטלפון שלך -->
+            <a href="tel:0523637333" aria-label="טלפון">📞</a>
+            <!-- TODO: אופציונלי — הוסיפו קישור לפייסבוק -->
+            <a href="#" aria-label="פייסבוק">📘</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <!-- TODO: החלף בשמך האמיתי -->
+        <p class="footer-copy">
+          © 2024 [שם] — שירותי אחזקה ותיקונים. כל הזכויות שמורות.
+        </p>
+        <p class="footer-credit">עוזר לכם לשמור על הבית ✨</p>
+      </div>
+    </footer>
+
+    <!-- Gallery Lightbox -->
+    <div
+      class="gallery-lightbox"
+      id="galleryLightbox"
+      role="dialog"
+      aria-modal="true"
+      aria-label="תצוגת גלריה"
+    >
+      <div class="gallery-lightbox-inner">
+        <button
+          class="gallery-lightbox-close"
+          id="galleryLbClose"
+          aria-label="סגור"
+        >
+          ✕
+        </button>
+        <div class="gallery-lightbox-media" id="galleryLbMedia">
+          <span id="galleryLbIcon">📷</span>
+          <span class="gallery-lightbox-media-hint" id="galleryLbHint"
+            >placeholder — add your media file</span
+          >
+        </div>
+        <div class="gallery-lightbox-title" id="galleryLbTitle"></div>
+        <div class="gallery-lightbox-counter" id="galleryLbCounter"></div>
+        <button
+          class="gallery-lightbox-nav gallery-lightbox-prev"
+          id="galleryLbPrev"
+          aria-label="הקודם"
+        >
+          ›
+        </button>
+        <button
+          class="gallery-lightbox-nav gallery-lightbox-next"
+          id="galleryLbNext"
+          aria-label="הבא"
+        >
+          ‹
+        </button>
+      </div>
+    </div>
+
+    <!-- =============================================
+       FLOATING WHATSAPP — bottom-LEFT (RTL natural bottom-start)
+  ============================================== -->
+    <a
+      href="https://wa.me/972523637333"
+      class="float-whatsapp"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="שלחו לי הודעה בוואטסאפ"
+    >
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path
+          d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
+        />
+      </svg>
+      <span class="float-tooltip">שלחו לי הודעה בוואטסאפ</span>
+    </a>
+
+    <!-- Side dot navigation (fixed, left side) -->
+    <nav
+      class="side-dots"
+      id="sideDots"
+      aria-label="ניווט מהיר בין סעיפים"
+    ></nav>
+
+    <!-- =============================================
+       JAVASCRIPT
+  ============================================== -->
+    <script>
+      "use strict";
+
+      // ——— SECTION IDs for side-dot navigation ———
+      var SECTIONS = [
+        "hero",
+        "gallery",
+        "services",
+        "why-me",
+        "reviews",
+        "contact",
+      ];
+      var SECTION_LABELS = [
+        "ראשי",
+        "גלריה",
+        "שירותים",
+        "למה אני",
+        "ביקורות",
+        "צרו קשר",
+      ];
+
+      // ——— MENU OVERLAY (תפריט button → full-screen overlay) ———
+      (function () {
+        var menuBtn = document.getElementById("menuBtn");
+        var overlay = document.getElementById("navOverlay");
+        var closeBtn = document.getElementById("overlayClose");
+
+        function openMenu() {
+          overlay.classList.add("open");
+          overlay.setAttribute("aria-hidden", "false");
+          menuBtn.setAttribute("aria-expanded", "true");
+          document.body.style.overflow = "hidden";
+        }
+
+        function closeMenu() {
+          overlay.classList.remove("open");
+          overlay.setAttribute("aria-hidden", "true");
+          menuBtn.setAttribute("aria-expanded", "false");
+          document.body.style.overflow = "";
+        }
+
+        menuBtn.addEventListener("click", openMenu);
+        closeBtn.addEventListener("click", closeMenu);
+
+        // Close when any overlay link is clicked and navigate to section
+        overlay.querySelectorAll("[data-overlay-link]").forEach(function (a) {
+          a.addEventListener("click", function () {
+            closeMenu();
+            // Smooth scroll handled by href + scroll-snap
+          });
+        });
+
+        // Close on Escape key
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape" && overlay.classList.contains("open"))
+            closeMenu();
+        });
+      })();
+
+      // ——— SIDE DOTS ———
+      (function () {
+        var dotsNav = document.getElementById("sideDots");
+        var dots = [];
+
+        SECTIONS.forEach(function (id, i) {
+          var dot = document.createElement("button");
+          dot.className = "side-dot";
+          dot.setAttribute("aria-label", SECTION_LABELS[i]);
+          dot.setAttribute("title", SECTION_LABELS[i]);
+          dot.addEventListener("click", function () {
+            var el = document.getElementById(id);
+            if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+          });
+          dotsNav.appendChild(dot);
+          dots.push(dot);
+        });
+
+        // Track which section is in view
+        var observer = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (!entry.isIntersecting) return;
+              var id = entry.target.id;
+              var idx = SECTIONS.indexOf(id);
+              if (idx === -1) return;
+
+              dots.forEach(function (d, i) {
+                d.classList.toggle("active", i === idx);
+              });
+
+              // Invert dot color on dark (trust-bar) section
+              dotsNav.classList.toggle("on-dark", id === "trust-bar");
+            });
+          },
+          { threshold: 0.5 },
+        );
+
+        SECTIONS.forEach(function (id) {
+          var el = document.getElementById(id);
+          if (el) observer.observe(el);
+        });
+      })();
+
+      // ——— FADE-UP ANIMATIONS (IntersectionObserver) ———
+      (function () {
+        var els = document.querySelectorAll(".fade-up");
+
+        var obs = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (!entry.isIntersecting) return;
+
+              // Stagger siblings within the same parent
+              var parent = entry.target.parentElement;
+              var pending = Array.from(
+                parent.querySelectorAll(".fade-up:not(.visible)"),
+              );
+              var idx = pending.indexOf(entry.target);
+              var delay = Math.max(0, idx) * 70;
+
+              setTimeout(function () {
+                entry.target.classList.add("visible");
+              }, delay);
+              obs.unobserve(entry.target);
+            });
+          },
+          { threshold: 0.1, rootMargin: "0px 0px -20px 0px" },
+        );
+
+        els.forEach(function (el) {
+          obs.observe(el);
+        });
+      })();
+
+      // ——— REVIEWS CAROUSEL ———
+      (function () {
+        var track = document.getElementById("carouselTrack");
+        var container = document.getElementById("carouselContainer");
+        var dotsEl = document.getElementById("carouselDots");
+        var btnNext = document.getElementById("carouselNext"); // ← left = next in RTL
+        var btnPrev = document.getElementById("carouselPrev"); // → right = prev in RTL
+
+        var cards = track.querySelectorAll(".review-card");
+        var total = cards.length;
+        var current = 0;
+        var paused = false;
+        var timer = null;
+
+        // Build dots
+        for (var i = 0; i < total; i++) {
+          (function (idx) {
+            var d = document.createElement("button");
+            d.className = "carousel-dot" + (idx === 0 ? " active" : "");
+            d.setAttribute("aria-label", "ביקורת " + (idx + 1));
+            d.addEventListener("click", function () {
+              goTo(idx);
+            });
+            dotsEl.appendChild(d);
+          })(i);
+        }
+
+        function render() {
+          // direction:ltr on track → translateX(-n*100%) shows nth card
+          track.style.transform = "translateX(-" + current * 100 + "%)";
+          var allDots = dotsEl.querySelectorAll(".carousel-dot");
+          allDots.forEach(function (d, i) {
+            d.classList.toggle("active", i === current);
+          });
+        }
+
+        function goTo(idx) {
+          current = ((idx % total) + total) % total;
+          render();
+        }
+        function next() {
+          goTo(current + 1);
+        }
+        function prev() {
+          goTo(current - 1);
+        }
+
+        btnNext.addEventListener("click", next); // ← arrow = next in RTL
+        btnPrev.addEventListener("click", prev); // → arrow = prev in RTL
+
+        function startAuto() {
+          timer = setInterval(function () {
+            if (!paused) next();
+          }, 4000);
+        }
+
+        var wrapper = document.querySelector(".carousel-wrapper");
+        wrapper.addEventListener("mouseenter", function () {
+          paused = true;
+        });
+        wrapper.addEventListener("mouseleave", function () {
+          paused = false;
+        });
+        wrapper.addEventListener("focusin", function () {
+          paused = true;
+        });
+        wrapper.addEventListener("focusout", function () {
+          paused = false;
+        });
+
+        // Touch/swipe
+        var touchX = 0;
+        container.addEventListener(
+          "touchstart",
+          function (e) {
+            touchX = e.touches[0].clientX;
+          },
+          { passive: true },
+        );
+        container.addEventListener(
+          "touchend",
+          function (e) {
+            var diff = touchX - e.changedTouches[0].clientX;
+            if (Math.abs(diff) > 44) {
+              if (diff > 0) next();
+              else prev();
+            }
+          },
+          { passive: true },
+        );
+
+        // Keyboard
+        wrapper.setAttribute("tabindex", "0");
+        wrapper.addEventListener("keydown", function (e) {
+          if (e.key === "ArrowLeft") {
+            e.preventDefault();
+            next();
+          }
+          if (e.key === "ArrowRight") {
+            e.preventDefault();
+            prev();
+          }
+        });
+
+        render();
+        startAuto();
+      })();
+
+      // ——— CONTACT FORM ———
+      (function () {
+        var form = document.getElementById("contactForm");
+        var success = document.getElementById("formSuccess");
+
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          var fields = [
+            {
+              el: document.getElementById("formName"),
+              val: document.getElementById("formName").value.trim(),
+            },
+            {
+              el: document.getElementById("formPhone"),
+              val: document.getElementById("formPhone").value.trim(),
+            },
+            {
+              el: document.getElementById("formMessage"),
+              val: document.getElementById("formMessage").value.trim(),
+            },
+          ];
+
+          var allOk = true;
+          fields.forEach(function (f) {
+            if (!f.val) {
+              f.el.style.borderColor = "#e53e3e";
+              allOk = false;
+            } else f.el.style.borderColor = "";
+          });
+
+          if (!allOk) return;
+
+          success.style.display = "block";
+          form.reset();
+          setTimeout(function () {
+            success.style.display = "none";
+          }, 6000);
+        });
+
+        form
+          .querySelectorAll(".form-input, .form-textarea")
+          .forEach(function (el) {
+            el.addEventListener("input", function () {
+              el.style.borderColor = "";
+            });
+          });
+      })();
+
+      // ——— NAVBAR: show only when hero is visible, fade out otherwise ———
+      (function () {
+        var nav = document.getElementById("navbar");
+        var hero = document.getElementById("hero");
+
+        var obs = new IntersectionObserver(
+          function (entries) {
+            // threshold 0.15 → nav appears as soon as 15% of hero is visible
+            var visible = entries[0].isIntersecting;
+            nav.classList.toggle("nav-hidden", !visible);
+          },
+          { threshold: 0.15 },
+        );
+
+        obs.observe(hero);
+      })();
+
+      // ——— GALLERY BACKGROUND VIDEO LOOP (0 – 21s) ———
+      (function () {
+        var vid = document.querySelector(".gallery-bg-video");
+        if (!vid) return;
+        vid.addEventListener("timeupdate", function () {
+          if (vid.currentTime >= 21) vid.currentTime = 0;
+        });
+      })();
+
+      // ——— GALLERY LIGHTBOX ———
+      (function () {
+        var items = document.querySelectorAll(".gallery-item");
+        if (!items.length) return;
+
+        var lb = document.getElementById("galleryLightbox");
+        var lbMedia = document.getElementById("galleryLbMedia");
+        var lbIcon = document.getElementById("galleryLbIcon");
+        var lbHint = document.getElementById("galleryLbHint");
+        var lbTitle = document.getElementById("galleryLbTitle");
+        var lbCnt = document.getElementById("galleryLbCounter");
+        var lbClose = document.getElementById("galleryLbClose");
+        var lbPrev = document.getElementById("galleryLbPrev");
+        var lbNext = document.getElementById("galleryLbNext");
+
+        var data = Array.from(items).map(function (el) {
+          var ph = el.querySelector(".gallery-placeholder");
+          var imgEl = el.querySelector(".gallery-img");
+          return {
+            type: el.getAttribute("data-type"),
+            label: el.getAttribute("data-label"),
+            icon: ph ? ph.querySelector("span").textContent : "📷",
+            gradient: ph
+              ? ph.style.background
+              : "linear-gradient(135deg,#0d3d5c,#0f7a72)",
+            src: imgEl ? imgEl.src : null,
+          };
+        });
+
+        var current = 0;
+        var total = data.length;
+
+        function render() {
+          var d = data[current];
+          lbIcon.textContent = d.icon;
+          lbHint.textContent =
+            d.type === "video"
+              ? "video placeholder — add your .mp4 file"
+              : "photo placeholder — add your .jpg file";
+          lbMedia.style.background = d.gradient;
+          lbTitle.textContent = d.label;
+          lbCnt.textContent = current + 1 + " / " + total;
+        }
+
+        function open(idx) {
+          current = ((idx % total) + total) % total;
+          render();
+          lb.classList.add("open");
+          document.body.style.overflow = "hidden";
+        }
+
+        function close() {
+          lb.classList.remove("open");
+          document.body.style.overflow = "";
+        }
+
+        items.forEach(function (el) {
+          el.addEventListener("click", function () {
+            open(parseInt(el.getAttribute("data-idx")));
+          });
+        });
+
+        lbClose.addEventListener("click", close);
+        lb.addEventListener("click", function (e) {
+          if (e.target === lb) close();
+        });
+        lbPrev.addEventListener("click", function () {
+          current = (current + 1) % total;
+          render();
+        });
+        lbNext.addEventListener("click", function () {
+          current = (current - 1 + total) % total;
+          render();
+        });
+
+        document.addEventListener("keydown", function (e) {
+          if (!lb.classList.contains("open")) return;
+          if (e.key === "Escape") close();
+          if (e.key === "ArrowLeft") {
+            current = (current + 1) % total;
+            render();
+          }
+          if (e.key === "ArrowRight") {
+            current = (current - 1 + total) % total;
+            render();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>
