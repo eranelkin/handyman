@@ -183,26 +183,34 @@
         padding: 0 24px;
       }
 
-      /* "הצעת מחיר" — LEFT side (RTL end), dark pill button */
+      #helpBtn {
+        position: absolute;
+        left: 5%;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      /* "אשמח לעזור" — LEFT side, link-style button */
       .nav-quote-btn {
         display: inline-flex;
         align-items: center;
-        background: #1a1a1a;
-        color: #ffd700;
-        text-decoration: none;
+        background: none;
+        color: #0a6eae;
+        text-decoration: underline;
+        text-underline-offset: 3px;
         font-family: "Heebo", sans-serif;
-        font-size: 0.92rem;
-        font-weight: 700;
-        padding: 9px 22px;
-        border-radius: 30px;
+        font-size: 1.65rem;
+        font-weight: 500;
+        padding: 4px 0;
+        border-radius: 0;
         transition:
-          background 0.2s,
-          transform 0.2s;
+          color 0.2s,
+          opacity 0.2s;
         white-space: nowrap;
+        margin-right: auto;
       }
       .nav-quote-btn:hover {
-        background: #2d2d2d;
-        transform: translateY(-1px);
+        color: #095c90;
+        opacity: 1;
       }
 
       /* "תפריט" — anchored to the right edge of the navbar */
@@ -372,7 +380,7 @@
        SECTION 1 — HERO (yellow, tilnet-style)
     ========================================= */
       #hero {
-        background: linear-gradient(to right, #fcc638 0%, #fedd53 100%);
+        background: linear-gradient(to right, #ffd466 0%, #f5d03d 100%);
       }
 
       /* Person photo: large transparent PNG standing on yellow background, centered, bottom-anchored */
@@ -1121,7 +1129,7 @@
       .gallery-video-overlay {
         position: absolute;
         inset: 0;
-        background: rgba(0,0,0,0.35);
+        background: rgba(0, 0, 0, 0.35);
         z-index: 1;
         opacity: 1;
       }
@@ -1582,7 +1590,7 @@
     <nav id="navbar">
       <div class="nav-inner">
         <!-- LEFT: Quote CTA -->
-        <a href="#contact" class="nav-quote-btn">הצעת מחיר</a>
+        <a id="helpBtn" href="#contact" class="nav-quote-btn">אשמח לעזור</a>
 
         <!-- RIGHT: Menu trigger -->
         <button
@@ -1612,8 +1620,8 @@
       </button>
       <nav class="overlay-nav">
         <a href="#hero" data-overlay-link>ראשי</a>
-        <a href="#services" data-overlay-link>שירותים</a>
         <a href="#why-me" data-overlay-link>למה אני?</a>
+        <a href="#services" data-overlay-link>שירותים</a>
         <a href="#reviews" data-overlay-link>ביקורות</a>
         <a href="#contact" data-overlay-link>צרו קשר</a>
       </nav>
@@ -1812,7 +1820,75 @@
     </section>
 
     <!-- =============================================
-       SECTION 2 — GALLERY (video background + bento grid)
+       SECTION 2 — SERVICES
+  ============================================== -->
+    <section id="services" class="page-section">
+      <div class="section-body">
+        <h2 class="section-title fade-up" style="color: #fff">
+          מה אני יכול לתקן בשבילכם?
+        </h2>
+        <p
+          class="section-subtitle fade-up"
+          style="margin-bottom: 24px; color: #fff"
+        >
+          מאינסטלציה ועד חשמל, מנגרות ועד צביעה — יש לי תשובה לכל בעיה.
+        </p>
+
+        <div class="services-grid">
+          <article class="service-card fade-up">
+            <span class="service-icon">🔧</span>
+            <h3 class="service-title">אינסטלציה</h3>
+            <p class="service-desc">
+              נזילות, צנרת, ברזים, לחץ מים — כל בעיה עם מים נפתרת.
+            </p>
+          </article>
+
+          <article class="service-card fade-up">
+            <span class="service-icon">⚡</span>
+            <h3 class="service-title">חשמל</h3>
+            <p class="service-desc">
+              שקעים, גופי תאורה, מפסקים ועבודות חשמל קלות בבית.
+            </p>
+          </article>
+
+          <article class="service-card fade-up">
+            <span class="service-icon">🚪</span>
+            <h3 class="service-title">נגרות</h3>
+            <p class="service-desc">
+              דלתות, מדפים, הרכבת רהיטים ותיקוני עץ — עבודה שמחזיקה.
+            </p>
+          </article>
+
+          <article class="service-card fade-up">
+            <span class="service-icon">🎨</span>
+            <h3 class="service-title">צביעה</h3>
+            <p class="service-desc">
+              גימורים פנימיים וצביעת חדרים — נקי, מדויק ומוסר בזמן.
+            </p>
+          </article>
+
+          <article class="service-card fade-up">
+            <span class="service-icon">🏠</span>
+            <h3 class="service-title">תיקונים כלליים</h3>
+            <p class="service-desc">
+              כל מה שהתקלקל בבית — אני אתקן. פשוט תתקשרו.
+            </p>
+          </article>
+
+          <article class="service-card fade-up">
+            <span class="service-icon">🛠️</span>
+            <h3 class="service-title">קריאות דחופות</h3>
+            <p class="service-desc">
+              מענה מהיר כשזה דחוף — כי חירום בבית לא מחכה.
+            </p>
+          </article>
+        </div>
+      </div>
+      <div class="scroll-cue" aria-hidden="true">&#8595;</div>
+    </section>
+
+    <!-- =============================================
+       SECTION 3 — GALLERY (video background + bento grid)
   ============================================== -->
     <section id="gallery" class="page-section gallery-section">
       <!--
@@ -1926,69 +2002,6 @@
       >
         &#8595;
       </div>
-    </section>
-
-    <!-- =============================================
-       SECTION 3 — SERVICES
-  ============================================== -->
-    <section id="services" class="page-section">
-      <div class="section-body">
-        <h2 class="section-title fade-up">מה אני יכול לתקן בשבילכם?</h2>
-        <p class="section-subtitle fade-up" style="margin-bottom: 24px">
-          מאינסטלציה ועד חשמל, מנגרות ועד צביעה — יש לי תשובה לכל בעיה.
-        </p>
-
-        <div class="services-grid">
-          <article class="service-card fade-up">
-            <span class="service-icon">🔧</span>
-            <h3 class="service-title">אינסטלציה</h3>
-            <p class="service-desc">
-              נזילות, צנרת, ברזים, לחץ מים — כל בעיה עם מים נפתרת.
-            </p>
-          </article>
-
-          <article class="service-card fade-up">
-            <span class="service-icon">⚡</span>
-            <h3 class="service-title">חשמל</h3>
-            <p class="service-desc">
-              שקעים, גופי תאורה, מפסקים ועבודות חשמל קלות בבית.
-            </p>
-          </article>
-
-          <article class="service-card fade-up">
-            <span class="service-icon">🚪</span>
-            <h3 class="service-title">נגרות</h3>
-            <p class="service-desc">
-              דלתות, מדפים, הרכבת רהיטים ותיקוני עץ — עבודה שמחזיקה.
-            </p>
-          </article>
-
-          <article class="service-card fade-up">
-            <span class="service-icon">🎨</span>
-            <h3 class="service-title">צביעה</h3>
-            <p class="service-desc">
-              גימורים פנימיים וצביעת חדרים — נקי, מדויק ומוסר בזמן.
-            </p>
-          </article>
-
-          <article class="service-card fade-up">
-            <span class="service-icon">🏠</span>
-            <h3 class="service-title">תיקונים כלליים</h3>
-            <p class="service-desc">
-              כל מה שהתקלקל בבית — אני אתקן. פשוט תתקשרו.
-            </p>
-          </article>
-
-          <article class="service-card fade-up">
-            <span class="service-icon">🛠️</span>
-            <h3 class="service-title">קריאות דחופות</h3>
-            <p class="service-desc">
-              מענה מהיר כשזה דחוף — כי חירום בבית לא מחכה.
-            </p>
-          </article>
-        </div>
-      </div>
-      <div class="scroll-cue" aria-hidden="true">&#8595;</div>
     </section>
 
     <!-- =============================================
@@ -2463,8 +2476,8 @@
       // ——— SECTION IDs for side-dot navigation ———
       var SECTIONS = [
         "hero",
-        "gallery",
         "services",
+        "gallery",
         "why-me",
         "reviews",
         "contact",
