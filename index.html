@@ -1610,11 +1610,17 @@
         html {
           scroll-snap-type: none;
           overflow-x: hidden;
+          overscroll-behavior: none;
+        }
+
+        body {
+          overscroll-behavior: none;
         }
 
         .page-section {
           height: auto;
           min-height: 100vh;
+          min-height: 100dvh;
           overflow: visible;
           scroll-snap-align: none;
           scroll-snap-stop: unset;
