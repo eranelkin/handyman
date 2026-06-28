@@ -2039,7 +2039,7 @@
         position: relative;
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 18px;
         background: rgba(0, 0, 0, 0.48);
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
@@ -2051,8 +2051,8 @@
         width: fit-content;
       }
       .gallery-pag-dot {
-        width: 11px;
-        height: 11px;
+        width: 13px;
+        height: 13px;
         border-radius: 50%;
         background: rgba(255, 255, 255, 0.28);
         border: none;
@@ -2338,6 +2338,10 @@
         }
       }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script>
+      emailjs.init("AFQaNihSsj7JsLa1_");
+    </script>
   </head>
   <body>
     <!-- =============================================
@@ -3998,11 +4002,28 @@
 
           if (!allOk) return;
 
-          success.style.display = "block";
-          form.reset();
-          setTimeout(function () {
-            success.style.display = "none";
-          }, 6000);
+          var btn = form.querySelector("button[type=submit]");
+          btn.disabled = true;
+
+          emailjs
+            .send("service_2qb9zej", "template_z1xd43h", {
+              from_name: fields[0].val,
+              from_phone: fields[1].val,
+              message: fields[2].val,
+            })
+            .then(function () {
+              success.style.display = "block";
+              form.reset();
+              setTimeout(function () {
+                success.style.display = "none";
+              }, 6000);
+            })
+            .catch(function () {
+              alert("שגיאה בשליחה, נסה שוב.");
+            })
+            .finally(function () {
+              btn.disabled = false;
+            });
         });
 
         form
@@ -4123,34 +4144,55 @@
             ],
           },
           {
-            title: "סלילת צינורות גינה",
-            category: "גינה",
-            icon: "🪏",
-            coverSrc: null,
+            title: "מדפים שונים ומשונים",
+            category: "כללי",
+            icon: "🔨",
+            coverSrc: "./images/general/shelfs/33.jpeg",
             coverGradient: "linear-gradient(135deg,#1a0a3c 0%,#2d1a60 100%)",
             media: [
               {
-                type: "video",
-                src: "./images/garden/pipes/1.mp4",
-                icon: "🪏",
+                type: "photo",
+                src: "./images/general/shelfs/33.jpeg",
+                icon: "🔨",
                 gradient: "linear-gradient(135deg,#1a0a3c 0%,#2d1a60 100%)",
-                label: "צביעת חדר · replace with ./images/paint-1.jpg",
+                label: "מדפים",
+              },
+              {
+                type: "photo",
+                src: "./images/general/shelfs/1.jpeg",
+                icon: "🔨",
+                gradient: "linear-gradient(135deg,#1a0a3c 0%,#2d1a60 100%)",
+                label: "מדפים",
               },
             ],
           },
           {
-            title: "תיקון חשמל — לפני ואחרי",
-            category: "חשמל",
-            icon: "⚡",
-            coverSrc: null,
+            title: "בניית דק איפאה",
+            category: "כללי",
+            icon: "🛠️",
+            coverSrc: "./images/general/deck/1.jpg",
             coverGradient: "linear-gradient(135deg,#0a2d3d 0%,#0d5060 100%)",
             media: [
               {
-                type: "video",
-                src: null,
-                icon: "⚡",
+                type: "photo",
+                src: "./images/general/deck/1.jpg",
+                icon: "🛠️",
                 gradient: "linear-gradient(135deg,#0a2d3d 0%,#0d5060 100%)",
-                label: "סרטון · replace with ./videos/electric.mp4",
+                label: "דק איפאה",
+              },
+              {
+                type: "photo",
+                src: "./images/general/deck/2.jpg",
+                icon: "🛠️",
+                gradient: "linear-gradient(135deg,#0a2d3d 0%,#0d5060 100%)",
+                label: "דק איפאה",
+              },
+              {
+                type: "photo",
+                src: "./images/general/deck/3.jpg",
+                icon: "🛠️",
+                gradient: "linear-gradient(135deg,#0a2d3d 0%,#0d5060 100%)",
+                label: "דק איפאה",
               },
             ],
           },
@@ -4171,6 +4213,13 @@
               {
                 type: "photo",
                 src: "./images/carpenters/table-shelf/2.jpeg",
+                icon: "🪚",
+                gradient: "linear-gradient(135deg,#3d1a05 0%,#7a3d10 100%)",
+                label: "שולחן מדף ",
+              },
+              {
+                type: "photo",
+                src: "./images/carpenters/table-shelf/6.jpg",
                 icon: "🪚",
                 gradient: "linear-gradient(135deg,#3d1a05 0%,#7a3d10 100%)",
                 label: "שולחן מדף ",
@@ -4236,54 +4285,66 @@
             ],
           },
           {
-            title: "התקנת ברז חדש",
-            category: "אינסטלציה",
-            icon: "🔧",
-            coverSrc: null,
-            coverGradient: "linear-gradient(135deg,#0d3040 0%,#0a5060 100%)",
-            media: [
-              {
-                type: "photo",
-                src: null,
-                icon: "🔧",
-                gradient: "linear-gradient(135deg,#0d3040 0%,#0a5060 100%)",
-                label: "replace with ./images/faucet.jpg",
-              },
-            ],
-          },
-          {
-            title: "צביעת חוץ — מרפסת",
-            category: "צביעה",
-            icon: "🎨",
-            coverSrc: null,
+            title: "מאווררי תיקרה",
+            category: "חשמל",
+            icon: "⚡️",
+            coverSrc: "./images/general/fan/11.jpeg",
             coverGradient: "linear-gradient(135deg,#2a1a4c 0%,#3d2a70 100%)",
             media: [
               {
                 type: "photo",
-                src: null,
-                icon: "🎨",
+                src: "./images/general/fan/11.jpeg",
+                icon: "⚡️",
                 gradient: "linear-gradient(135deg,#2a1a4c 0%,#3d2a70 100%)",
                 label: "לפני · replace with ./images/balcony-before.jpg",
               },
               {
                 type: "photo",
-                src: null,
-                icon: "🎨",
+                src: "./images/general/fan/12.jpeg",
+                icon: "⚡️",
+                gradient: "linear-gradient(135deg,#3a2a5c 0%,#4d3a80 100%)",
+                label: "אחרי · replace with ./images/balcony-after.jpg",
+              },
+              {
+                type: "photo",
+                src: "./images/general/fan/13.jpeg",
+                icon: "⚡️",
                 gradient: "linear-gradient(135deg,#3a2a5c 0%,#4d3a80 100%)",
                 label: "אחרי · replace with ./images/balcony-after.jpg",
               },
             ],
           },
           {
-            title: "תיקון תריס חשמלי",
+            title: "גופי תאורה",
             category: "חשמל",
             icon: "⚡",
-            coverSrc: null,
+            coverSrc: "./images/general/elecricity/1.jpeg",
             coverGradient: "linear-gradient(135deg,#0f2a3a 0%,#0c4558 100%)",
             media: [
               {
-                type: "video",
-                src: null,
+                type: "photo",
+                src: "./images/general/elecricity/1.jpeg",
+                icon: "⚡",
+                gradient: "linear-gradient(135deg,#0f2a3a 0%,#0c4558 100%)",
+                label: "replace with ./videos/shutter.mp4",
+              },
+              {
+                type: "photo",
+                src: "./images/general/elecricity/2.jpeg",
+                icon: "⚡",
+                gradient: "linear-gradient(135deg,#0f2a3a 0%,#0c4558 100%)",
+                label: "replace with ./videos/shutter.mp4",
+              },
+              {
+                type: "photo",
+                src: "./images/general/elecricity/3.jpeg",
+                icon: "⚡",
+                gradient: "linear-gradient(135deg,#0f2a3a 0%,#0c4558 100%)",
+                label: "replace with ./videos/shutter.mp4",
+              },
+              {
+                type: "photo",
+                src: "./images/general/elecricity/4.jpeg",
                 icon: "⚡",
                 gradient: "linear-gradient(135deg,#0f2a3a 0%,#0c4558 100%)",
                 label: "replace with ./videos/shutter.mp4",
@@ -4354,22 +4415,6 @@
                 icon: "🪚",
                 gradient: "linear-gradient(135deg,#4d2a15 0%,#8a4d20 100%)",
                 label: "מגירת מטבח",
-              },
-            ],
-          },
-          {
-            title: "חיזוק מרפסת",
-            category: "תיקונים כלליים",
-            icon: "🏠",
-            coverSrc: null,
-            coverGradient: "linear-gradient(135deg,#2a1a1a 0%,#4a2a2a 100%)",
-            media: [
-              {
-                type: "photo",
-                src: null,
-                icon: "🏠",
-                gradient: "linear-gradient(135deg,#2a1a1a 0%,#4a2a2a 100%)",
-                label: "replace with ./images/balcony-fix.jpg",
               },
             ],
           },
