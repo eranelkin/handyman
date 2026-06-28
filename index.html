@@ -2034,26 +2034,25 @@
         transition: transform 0.65s ease;
       }
 
-      /* Pagination pill — floats at bottom of grid */
+      /* Pagination pill — sits below the grid */
       .gallery-pagination {
-        position: absolute;
-        bottom: 10px;
-        left: 50%;
-        transform: translateX(-50%);
+        position: relative;
         display: flex;
         align-items: center;
-        gap: 6px;
+        gap: 10px;
         background: rgba(0, 0, 0, 0.48);
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
         border: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 30px;
-        padding: 7px 14px;
+        padding: 10px 28px;
         z-index: 10;
+        margin: 18px auto 0;
+        width: fit-content;
       }
       .gallery-pag-dot {
-        width: 8px;
-        height: 8px;
+        width: 11px;
+        height: 11px;
         border-radius: 50%;
         background: rgba(255, 255, 255, 0.28);
         border: none;
@@ -4050,27 +4049,73 @@
         // Replace src: null / gradient with your real files when ready.
         var PROJECTS = [
           {
-            title: "שיפוץ מטבח מלא",
+            title: "שולחן כפרי",
+            category: "נגרות",
+            icon: "🚪",
+            coverSrc: "./images/carpenters/table/3.jpeg",
+            coverGradient: "linear-gradient(135deg,#3d1a05 0%,#7a3d10 100%)",
+            media: [
+              {
+                type: "photo",
+                src: "./images/carpenters/table/3.jpeg",
+                icon: "🚪",
+                gradient: "linear-gradient(135deg,#3d1a05 0%,#7a3d10 100%)",
+                label: "שולחן כפרי ",
+              },
+              {
+                type: "photo",
+                src: "./images/carpenters/table/2.jpeg",
+                icon: "🚪",
+                gradient: "linear-gradient(135deg,#4d2a15 0%,#8a4d20 100%)",
+                label: "שולחן כפרי",
+              },
+              {
+                type: "photo",
+                src: "./images/carpenters/table/4.jpeg",
+                icon: "🚪",
+                gradient: "linear-gradient(135deg,#4d2a15 0%,#8a4d20 100%)",
+                label: "שולחן כפרי",
+              },
+              {
+                type: "photo",
+                src: "./images/carpenters/table/5.jpeg",
+                icon: "🚪",
+                gradient: "linear-gradient(135deg,#4d2a15 0%,#8a4d20 100%)",
+                label: "שולחן כפרי",
+              },
+            ],
+          },
+          {
+            title: "החלפת מיכל הדחה סמוי",
             category: "אינסטלציה",
             icon: "🔧",
-            coverSrc: "./images/gallery-1.jpg",
+            coverSrc: "./images/plumb/1.jpeg",
             coverGradient: "linear-gradient(135deg,#0a2d1a 0%,#0d5030 100%)",
             media: [
               {
                 type: "photo",
-                src: "./images/gallery-1.jpg",
-                label: "לפני השיפוץ",
-              },
-              {
-                type: "video",
-                src: null,
-                icon: "🎬",
-                gradient: "linear-gradient(135deg,#1a0a3c 0%,#2d1a60 100%)",
-                label: "סרטון תהליך · replace with ./videos/kitchen.mp4",
+                src: "./images/plumb/1.jpeg",
+                icon: "🔧",
+                gradient: "linear-gradient(135deg,#0a2d1a 0%,#0d5030 100%)",
+                label: "אחרי השיפוץ · replace with ./images/kitchen-after.jpg",
               },
               {
                 type: "photo",
-                src: null,
+                src: "./images/plumb/2.jpeg",
+                icon: "🔧",
+                gradient: "linear-gradient(135deg,#0a2d1a 0%,#0d5030 100%)",
+                label: "אחרי השיפוץ · replace with ./images/kitchen-after.jpg",
+              },
+              {
+                type: "photo",
+                src: "./images/plumb/3.jpeg",
+                icon: "🔧",
+                gradient: "linear-gradient(135deg,#0a2d1a 0%,#0d5030 100%)",
+                label: "אחרי השיפוץ · replace with ./images/kitchen-after.jpg",
+              },
+              {
+                type: "photo",
+                src: "./images/plumb/4.jpeg",
                 icon: "🔧",
                 gradient: "linear-gradient(135deg,#0a2d1a 0%,#0d5030 100%)",
                 label: "אחרי השיפוץ · replace with ./images/kitchen-after.jpg",
@@ -4078,16 +4123,16 @@
             ],
           },
           {
-            title: "צביעת חדר מגורים",
-            category: "צביעה",
-            icon: "🎨",
+            title: "סלילת צינורות גינה",
+            category: "גינה",
+            icon: "🪏",
             coverSrc: null,
             coverGradient: "linear-gradient(135deg,#1a0a3c 0%,#2d1a60 100%)",
             media: [
               {
-                type: "photo",
-                src: null,
-                icon: "🎨",
+                type: "video",
+                src: "./images/garden/pipes/1.mp4",
+                icon: "🪏",
                 gradient: "linear-gradient(135deg,#1a0a3c 0%,#2d1a60 100%)",
                 label: "צביעת חדר · replace with ./images/paint-1.jpg",
               },
@@ -4110,103 +4155,83 @@
             ],
           },
           {
-            title: "שולחן כפרי",
+            title: "שולחן מדף",
             category: "נגרות",
-            icon: "🚪",
-            coverSrc: "./images/carpenters/table/3.jpeg",
+            icon: "🪚",
+            coverSrc: "./images/carpenters/table-shelf/5.jpeg",
             coverGradient: "linear-gradient(135deg,#3d1a05 0%,#7a3d10 100%)",
             media: [
               {
                 type: "photo",
-                src: "./images/carpenters/table/3.jpeg",
-                icon: "🚪",
+                src: "./images/carpenters/table-shelf/1.jpeg",
+                icon: "🪚",
                 gradient: "linear-gradient(135deg,#3d1a05 0%,#7a3d10 100%)",
-                label: "מדפים עץ מלא ",
+                label: "שולחן מדף ",
               },
               {
                 type: "photo",
-                src: "./images/carpenters/table/2.jpeg",
-                icon: "🚪",
+                src: "./images/carpenters/table-shelf/2.jpeg",
+                icon: "🪚",
+                gradient: "linear-gradient(135deg,#3d1a05 0%,#7a3d10 100%)",
+                label: "שולחן מדף ",
+              },
+              {
+                type: "photo",
+                src: "./images/carpenters/table-shelf/3.jpeg",
+                icon: "🪚",
                 gradient: "linear-gradient(135deg,#4d2a15 0%,#8a4d20 100%)",
-                label:
-                  "פרטי עיצוב · replace with ./images/carpenters/table/2.jpeg",
+                label: "שולחן מדף",
               },
               {
                 type: "photo",
-                src: "./images/carpenters/table/4.jpeg",
-                icon: "🚪",
+                src: "./images/carpenters/table-shelf/4.jpeg",
+                icon: "🪚",
                 gradient: "linear-gradient(135deg,#4d2a15 0%,#8a4d20 100%)",
-                label:
-                  "פרטי עיצוב · replace with ./images/carpenters/table/3.jpeg",
+                label: "שולחן מדף",
               },
               {
                 type: "photo",
-                src: "./images/carpenters/table/5.jpeg",
-                icon: "🚪",
+                src: "./images/carpenters/table-shelf/5.jpeg",
+                icon: "🪚",
                 gradient: "linear-gradient(135deg,#4d2a15 0%,#8a4d20 100%)",
-                label:
-                  "פרטי עיצוב · replace with ./images/carpenters/table/4.jpeg",
-              },
-
-              // {
-              //   type: "video",
-              //   src: null,
-              //   icon: "🎬",
-              //   gradient: "linear-gradient(135deg,#1a0a3c 0%,#2d1a60 100%)",
-              //   label: "סרטון הרכבה · replace with ./videos/shelves.mp4",
-              // },
-            ],
-          },
-          {
-            title: "קריאת חירום — נזילה",
-            category: "אינסטלציה",
-            icon: "💧",
-            coverSrc: null,
-            coverGradient: "linear-gradient(135deg,#05203d 0%,#0a4070 100%)",
-            media: [
-              {
-                type: "photo",
-                src: null,
-                icon: "💧",
-                gradient: "linear-gradient(135deg,#05203d 0%,#0a4070 100%)",
-                label: "הנזילה שנמצאה · replace with ./images/leak-1.jpg",
-              },
-              {
-                type: "photo",
-                src: null,
-                icon: "💧",
-                gradient: "linear-gradient(135deg,#051a30 0%,#0a3560 100%)",
-                label: "לאחר התיקון · replace with ./images/leak-2.jpg",
+                label: "שולחן מדף",
               },
             ],
           },
           {
-            title: "שיפוץ חדר שינה",
-            category: "תיקונים כלליים",
-            icon: "🏠",
-            coverSrc: null,
-            coverGradient: "linear-gradient(135deg,#1a1a2e 0%,#16213e 100%)",
+            title: "ארון מעוצב לאמבטיית קרח",
+            category: "נגרות",
+            icon: "🪚",
+            coverSrc: "./images/carpenters/ice/2.jpeg",
+            coverGradient: "linear-gradient(135deg,#3d1a05 0%,#7a3d10 100%)",
             media: [
               {
                 type: "photo",
-                src: null,
-                icon: "🏠",
-                gradient: "linear-gradient(135deg,#1a1a2e 0%,#16213e 100%)",
-                label: "לפני · replace with ./images/bedroom-before.jpg",
+                src: "./images/carpenters/ice/1.jpeg",
+                icon: "🪚",
+                gradient: "linear-gradient(135deg,#3d1a05 0%,#7a3d10 100%)",
+                label: "ארון מעוצב לאמבטיית קרח",
               },
               {
                 type: "photo",
-                src: null,
-                icon: "🏠",
-                gradient: "linear-gradient(135deg,#1f2545 0%,#1b2b50 100%)",
-                label: "אחרי · replace with ./images/bedroom-after.jpg",
+                src: "./images/carpenters/ice/2.jpeg",
+                icon: "🪚",
+                gradient: "linear-gradient(135deg,#3d1a05 0%,#7a3d10 100%)",
+                label: "ארון מעוצב לאמבטיית קרח",
               },
               {
-                type: "video",
-                src: null,
-                icon: "🎬",
-                gradient: "linear-gradient(135deg,#1a0a3c 0%,#2d1a60 100%)",
-                label: "סרטון · replace with ./videos/bedroom.mp4",
+                type: "photo",
+                src: "./images/carpenters/ice/3.jpeg",
+                icon: "🪚",
+                gradient: "linear-gradient(135deg,#4d2a15 0%,#8a4d20 100%)",
+                label: "ארון מעוצב לאמבטיית קרח",
+              },
+              {
+                type: "photo",
+                src: "./images/carpenters/ice/plan.jpeg",
+                icon: "🪚",
+                gradient: "linear-gradient(135deg,#4d2a15 0%,#8a4d20 100%)",
+                label: "ארון מעוצב לאמבטיית קרח",
               },
             ],
           },
@@ -4266,69 +4291,69 @@
             ],
           },
           {
-            title: "דלת כניסה חדשה",
-            category: "נגרות",
-            icon: "🚪",
-            coverSrc: null,
-            coverGradient: "linear-gradient(135deg,#4d2a10 0%,#8a4d20 100%)",
+            title: "החלפת מחשב השקיית גינה",
+            category: "גינה",
+            icon: "🪚",
+            coverSrc: "./images/garden/computer/3.jpeg",
+            coverGradient: "linear-gradient(135deg,#3d1a05 0%,#7a3d10 100%)",
             media: [
               {
                 type: "photo",
-                src: null,
-                icon: "🚪",
-                gradient: "linear-gradient(135deg,#4d2a10 0%,#8a4d20 100%)",
-                label: "לפני · replace with ./images/door-before.jpg",
+                src: "./images/garden/computer/3.jpeg",
+                icon: "🪏",
+                gradient: "linear-gradient(135deg,#3d1a05 0%,#7a3d10 100%)",
+                label: "מחשב גינה",
               },
               {
                 type: "photo",
-                src: null,
-                icon: "🚪",
-                gradient: "linear-gradient(135deg,#5d3a20 0%,#9a5d30 100%)",
-                label: "אחרי · replace with ./images/door-after.jpg",
+                src: "./images/garden/computer/2.jpeg",
+                icon: "🪏",
+                gradient: "linear-gradient(135deg,#3d1a05 0%,#7a3d10 100%)",
+                label: "מחשב גינה ",
               },
               {
                 type: "video",
-                src: null,
-                icon: "🎬",
-                gradient: "linear-gradient(135deg,#1a0a3c 0%,#2d1a60 100%)",
-                label: "סרטון · replace with ./videos/door.mp4",
+                src: "./images/garden/computer/1.mp4",
+                icon: "🪏",
+                gradient: "linear-gradient(135deg,#0a2d3d 0%,#0d5060 100%)",
+                label: "מחשב גינה",
+              },
+              {
+                type: "photo",
+                src: "./images/garden/computer/4.jpeg",
+                icon: "🪏",
+                gradient: "linear-gradient(135deg,#4d2a15 0%,#8a4d20 100%)",
+                label: "מחשב גינה",
               },
             ],
           },
           {
-            title: "שיפוץ שירותים — אריחים",
-            category: "תיקונים כלליים",
-            icon: "🏠",
-            coverSrc: null,
-            coverGradient: "linear-gradient(135deg,#1a2a3a 0%,#24405a 100%)",
+            title: "בניה והחלפת מגירת מטבח",
+            category: "נגרות",
+            icon: "🪚",
+            coverSrc: "./images/carpenters/kitchen/1.jpeg",
+            coverGradient: "linear-gradient(135deg,#3d1a05 0%,#7a3d10 100%)",
             media: [
               {
                 type: "photo",
-                src: null,
-                icon: "🏠",
-                gradient: "linear-gradient(135deg,#1a2a3a 0%,#24405a 100%)",
-                label: "לפני · replace with ./images/bathroom-before.jpg",
+                src: "./images/carpenters/kitchen/1.jpeg",
+                icon: "🪚",
+                gradient: "linear-gradient(135deg,#3d1a05 0%,#7a3d10 100%)",
+                label: "מגירת מטבח ",
               },
               {
                 type: "photo",
-                src: null,
-                icon: "🏠",
-                gradient: "linear-gradient(135deg,#1f2f3f 0%,#2a4a5f 100%)",
-                label: "אחרי · replace with ./images/bathroom-after.jpg",
-              },
-              {
-                type: "video",
-                src: null,
-                icon: "🎬",
-                gradient: "linear-gradient(135deg,#1a0a3c 0%,#2d1a60 100%)",
-                label: "תהליך · replace with ./videos/bathroom.mp4",
+                src: "./images/carpenters/kitchen/2.jpeg",
+                icon: "🪚",
+                gradient: "linear-gradient(135deg,#3d1a05 0%,#7a3d10 100%)",
+                label: "מגירת מטבח ",
               },
               {
                 type: "photo",
-                src: null,
-                icon: "🏠",
-                gradient: "linear-gradient(135deg,#24353a 0%,#2e4f5a 100%)",
-                label: "פרטים · replace with ./images/bathroom-detail.jpg",
+                src: "./images/carpenters/kitchen/3.jpeg",
+                icon: "🪚",
+                gradient: "linear-gradient(135deg,#4d2a15 0%,#8a4d20 100%)",
+                label: "מגירת מטבח",
               },
             ],
           },
@@ -4449,6 +4474,35 @@
         }
 
         // ── CARD CREATION ─────────────────────────────────────────────────
+        function captureVideoFrame(src, callback) {
+          var vid = document.createElement("video");
+          vid.muted = true;
+          vid.playsInline = true;
+          vid.preload = "metadata";
+          vid.src = src;
+          vid.currentTime = 0.5;
+          vid.addEventListener(
+            "seeked",
+            function () {
+              var canvas = document.createElement("canvas");
+              canvas.width = vid.videoWidth || 320;
+              canvas.height = vid.videoHeight || 180;
+              canvas
+                .getContext("2d")
+                .drawImage(vid, 0, 0, canvas.width, canvas.height);
+              callback(canvas.toDataURL("image/jpeg", 0.85));
+            },
+            { once: true },
+          );
+          vid.addEventListener(
+            "error",
+            function () {
+              callback(null);
+            },
+            { once: true },
+          );
+        }
+
         function makePlaceholder(icon, gradient) {
           var ph = document.createElement("div");
           ph.className = "gallery-placeholder";
@@ -4505,7 +4559,12 @@
             project.media.slice(0, 3).forEach(function (m) {
               var t = document.createElement("div");
               t.className = "gallery-thumb";
-              if (m.src) {
+              if (m.type === "video" && m.src) {
+                t.style.background = m.gradient || project.coverGradient;
+                captureVideoFrame(m.src, function (dataUrl) {
+                  if (dataUrl) t.style.backgroundImage = "url(" + dataUrl + ")";
+                });
+              } else if (m.src) {
                 t.style.backgroundImage = "url(" + m.src + ")";
               } else {
                 t.style.background = m.gradient || project.coverGradient;
@@ -4634,6 +4693,24 @@
                 );
               });
               item.appendChild(img);
+            } else if (m.type === "video" && m.src) {
+              var ph = makePlbPlaceholder(
+                m.icon || project.icon,
+                m.gradient || project.coverGradient,
+              );
+              item.appendChild(ph);
+              captureVideoFrame(m.src, function (dataUrl) {
+                if (dataUrl) {
+                  var thumb = document.createElement("img");
+                  thumb.src = dataUrl;
+                  item.insertBefore(thumb, item.firstChild);
+                  ph.remove();
+                }
+              });
+              var pb = document.createElement("div");
+              pb.className = "plb-play-btn";
+              pb.textContent = "▶";
+              item.appendChild(pb);
             } else {
               item.appendChild(
                 makePlbPlaceholder(
@@ -4705,9 +4782,14 @@
 
         function renderSingleMedia() {
           var d = singleArr[singleIdx];
-          // Remove any real-image element from a previous render
+          // Remove any real-image/video element from a previous render
           var prev = lbMedia.querySelector(".lb-real-img");
           if (prev) prev.remove();
+          var prevVid = lbMedia.querySelector(".lb-real-vid");
+          if (prevVid) {
+            prevVid.pause();
+            prevVid.remove();
+          }
 
           if (d.type === "photo" && d.src) {
             var img = document.createElement("img");
@@ -4718,6 +4800,20 @@
             img.alt = d.label || "";
             lbMedia.appendChild(img);
             lbMedia.style.background = "transparent";
+            lbIcon.style.display = "none";
+            lbHint.style.display = "none";
+          } else if (d.type === "video" && d.src) {
+            var vid = document.createElement("video");
+            vid.className = "lb-real-vid";
+            vid.style.cssText =
+              "position:absolute;inset:0;width:100%;height:100%;object-fit:contain;border-radius:16px;";
+            vid.src = d.src;
+            vid.controls = true;
+            vid.autoplay = true;
+            vid.playsInline = true;
+            vid.muted = true;
+            lbMedia.appendChild(vid);
+            lbMedia.style.background = "#000";
             lbIcon.style.display = "none";
             lbHint.style.display = "none";
           } else {
@@ -4748,6 +4844,11 @@
         }
 
         function closeLb() {
+          var vid = lbMedia.querySelector(".lb-real-vid");
+          if (vid) {
+            vid.pause();
+            vid.remove();
+          }
           lb.classList.remove("open");
           if (!plb.classList.contains("open"))
             document.body.style.overflow = "";
