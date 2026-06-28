@@ -412,6 +412,7 @@
         object-fit: contain;
         object-position: bottom center;
         display: block;
+        margin-top: 40px;
       }
       .hero-photo-fallback {
         height: 100%;
@@ -437,9 +438,13 @@
         gap: 16px;
       }
       .hero-brand-img {
-        width: clamp(240px, 32vw, 440px);
+        width: clamp(100px, 12vw, 200px);
         height: auto;
         display: block;
+        position: absolute;
+        top: 360px;
+        left: 220px;
+        z-index: 10;
       }
       .hero-brand-text {
         font-size: clamp(1.8rem, 3vw, 3rem);
@@ -933,6 +938,87 @@
       .carousel-dot.active {
         background: #f59e0b;
         transform: scale(1.4);
+      }
+
+      .write-review-btn {
+        width: auto;
+        padding: 0 18px;
+        border-radius: 22px;
+        font-size: 0.88rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+      }
+
+      /* Review modal */
+      .review-modal {
+        position: fixed;
+        inset: 0;
+        background: rgba(10, 15, 25, 0.92);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        z-index: 2000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.32s ease;
+      }
+      .review-modal.open {
+        opacity: 1;
+        pointer-events: all;
+      }
+      .review-modal-close {
+        position: absolute;
+        top: 22px;
+        right: 22px;
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        border: 2px solid rgba(255, 255, 255, 0.25);
+        background: transparent;
+        color: #fff;
+        font-size: 1.2rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.22s;
+      }
+      .review-modal-close:hover {
+        border-color: #ffd700;
+        background: rgba(255, 215, 0, 0.1);
+        color: #ffd700;
+      }
+      .review-modal-box {
+        background: #1e293b;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        padding: 36px 32px 32px;
+        width: 100%;
+        max-width: 480px;
+        margin: 0 16px;
+        max-height: 90vh;
+        overflow-y: auto;
+        direction: rtl;
+      }
+      .review-modal-title {
+        color: #ffd700;
+        font-size: 1.4rem;
+        font-weight: 700;
+        margin: 0 0 24px;
+        text-align: center;
+      }
+      .review-modal-success {
+        display: none;
+        background: #e8f9ee;
+        border: 1px solid #c3e6cb;
+        color: #1a5c30;
+        border-radius: 9px;
+        padding: 14px 16px;
+        text-align: center;
+        font-weight: 600;
+        margin-top: 16px;
       }
 
       /* =========================================
@@ -2399,21 +2485,20 @@
        Person photo centered on yellow, brand right, bubble left
   ============================================== -->
     <section id="hero" class="page-section">
+      <img
+        src="./images/logo.png"
+        alt="handyman"
+        class="hero-brand-img fade-up"
+      />
       <!--
       Person photo — transparent PNG placed directly on yellow background.
       Save your photo (Image 1, the transparent-background PNG) as: ./images/me.png
       The transparent areas show the yellow background naturally.
     -->
-      <!-- LEFT side (RTL end): Brand name -->
-      <div class="hero-brand-left fade-up">
-        <img src="./images/ef.png" alt="handyman" class="hero-brand-img" />
-        <!-- <div class="hero-brand-text">ידי זהב</div> -->
-      </div>
-
       <div class="hero-visual">
         <div class="hero-photo-wrap" id="heroPhotoWrap">
           <img
-            src="./images/me.png"
+            src="./images/Eran.png"
             alt="<!-- TODO: החלף בשמך האמיתי --> [שם] — בעל עסק לתחזוקה ותיקונים"
             class="hero-photo-img"
             id="heroPhoto"
@@ -3146,16 +3231,17 @@
                 </div>
                 <p class="review-text">
                   עבודה מעולה בדירה החדשה שלנו. הרכיב את כל הרהיטים, תלה תמונות
-                  וווילונות, ותיקן כמה בעיות חשמל. איש אחד, יום אחד — הכל גמור.
+                  וווילונות, ותיקן כמה בעיות חשמל. איש אחד, יום אחד — הכל גמור,
+                  מומלץ!!.
                 </p>
                 <div class="review-divider"></div>
                 <div class="review-meta">
                   <div class="review-avatar" style="background: #0891b2">א</div>
                   <div class="review-author-info">
-                    <div class="review-name">ראות רוט, מודיעין</div>
+                    <div class="review-name">ראות תורג׳מן, מודיעין</div>
                     <div class="review-service">הרכבת רהיטים · חשמל</div>
                   </div>
-                  <span class="review-date">מרץ 2026</span>
+                  <span class="review-date">מאי 2026</span>
                 </div>
               </article>
 
@@ -3375,7 +3461,7 @@
                 </div>
                 <p class="review-text">
                   מענה מהיר, מחיר הוגן, תוצאה מושלמת. המקלחת שלי לא מטפטפת כבר
-                  שלושה חודשים. זה האיש שאתם שומרים במגעים.
+                  שלושה חודשים. זה האיש שאתם שומרים באנשי הקשר.
                 </p>
                 <div class="review-divider"></div>
                 <div class="review-meta">
@@ -3451,7 +3537,7 @@
                 </div>
                 <p class="review-text">
                   פניתי לשלושה בעלי מקצוע לפני כן — ערן היחיד שהגיע כשאמר שיגיע.
-                  העבודה הייתה מצוינת. עכשיו הוא המספר היחיד שאני מתקשרת אליו.
+                  העבודה הייתה מצוינת. כשאצטרך אין לי ספק שאצלצל רק אליו.
                 </p>
                 <div class="review-divider"></div>
                 <div class="review-meta">
@@ -3482,6 +3568,13 @@
               aria-label="ביקורת קודמת"
             >
               &#8594;
+            </button>
+            <button
+              class="carousel-btn write-review-btn"
+              id="writeReviewBtn"
+              aria-label="כתוב ביקורת"
+            >
+              Write
             </button>
           </div>
         </div>
@@ -4935,6 +5028,158 @@
         // ── INIT ──────────────────────────────────────────────────────────
         buildFilterBar();
         renderPage(false);
+      })();
+    </script>
+
+    <!-- ── WRITE REVIEW MODAL ───────────────────────── -->
+    <div class="review-modal" id="reviewModal">
+      <button class="review-modal-close" id="reviewModalClose">✕</button>
+      <div class="review-modal-box">
+        <h2 class="review-modal-title">כתוב ביקורת</h2>
+        <form id="reviewForm" novalidate>
+          <div class="form-group">
+            <label class="form-label" for="reviewName">שם מלא</label>
+            <input
+              type="text"
+              id="reviewName"
+              class="form-input"
+              placeholder="ישראל ישראלי"
+              autocomplete="name"
+            />
+          </div>
+          <div class="form-group" style="margin-top: 14px">
+            <label class="form-label" for="reviewPhone">טלפון</label>
+            <input
+              type="tel"
+              id="reviewPhone"
+              class="form-input"
+              placeholder="050-0000000"
+              autocomplete="tel"
+            />
+          </div>
+          <div class="form-group" style="margin-top: 14px">
+            <label class="form-label" for="reviewCity">עיר</label>
+            <input
+              type="text"
+              id="reviewCity"
+              class="form-input"
+              placeholder="תל אביב"
+            />
+          </div>
+          <div class="form-group" style="margin-top: 14px">
+            <label class="form-label" for="reviewDate">תאריך</label>
+            <input type="date" id="reviewDate" class="form-input" />
+          </div>
+          <div class="form-group" style="margin-top: 14px">
+            <label class="form-label" for="reviewDescription">ביקורת</label>
+            <textarea
+              id="reviewDescription"
+              class="form-textarea"
+              placeholder="ספר על החוויה שלך..."
+              rows="4"
+            ></textarea>
+          </div>
+          <button
+            type="submit"
+            class="btn-submit"
+            style="width: 100%; margin-top: 20px"
+          >
+            שלח ביקורת
+          </button>
+        </form>
+        <div class="review-modal-success" id="reviewModalSuccess">
+          Thank you for your review, it will be posted within 24 hours
+        </div>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        var modal = document.getElementById("reviewModal");
+        var closeBtn = document.getElementById("reviewModalClose");
+        var writeBtn = document.getElementById("writeReviewBtn");
+        var form = document.getElementById("reviewForm");
+        var successMsg = document.getElementById("reviewModalSuccess");
+
+        function openModal() {
+          modal.classList.add("open");
+        }
+        function closeModal() {
+          modal.classList.remove("open");
+          successMsg.style.display = "none";
+        }
+
+        writeBtn.addEventListener("click", openModal);
+        closeBtn.addEventListener("click", closeModal);
+        modal.addEventListener("click", function (e) {
+          if (e.target === modal) closeModal();
+        });
+
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          var fields = [
+            {
+              el: document.getElementById("reviewName"),
+              val: document.getElementById("reviewName").value.trim(),
+            },
+            {
+              el: document.getElementById("reviewPhone"),
+              val: document.getElementById("reviewPhone").value.trim(),
+            },
+            {
+              el: document.getElementById("reviewCity"),
+              val: document.getElementById("reviewCity").value.trim(),
+            },
+            {
+              el: document.getElementById("reviewDate"),
+              val: document.getElementById("reviewDate").value.trim(),
+            },
+            {
+              el: document.getElementById("reviewDescription"),
+              val: document.getElementById("reviewDescription").value.trim(),
+            },
+          ];
+
+          var allOk = true;
+          fields.forEach(function (f) {
+            if (!f.val) {
+              f.el.style.borderColor = "#e53e3e";
+              allOk = false;
+            } else f.el.style.borderColor = "";
+          });
+          if (!allOk) return;
+
+          var btn = form.querySelector("button[type=submit]");
+          btn.disabled = true;
+
+          emailjs
+            .send("service_2qb9zej", "template_lu5876s", {
+              review_name: fields[0].val,
+              review_phone: fields[1].val,
+              review_city: fields[2].val,
+              review_date: fields[3].val,
+              review_description: fields[4].val,
+            })
+            .then(function () {
+              form.reset();
+              successMsg.style.display = "block";
+            })
+            .catch(function () {
+              alert("שגיאה בשליחה, נסה שוב.");
+            })
+            .finally(function () {
+              btn.disabled = false;
+            });
+        });
+
+        form
+          .querySelectorAll(".form-input, .form-textarea")
+          .forEach(function (el) {
+            el.addEventListener("input", function () {
+              el.style.borderColor = "";
+            });
+          });
       })();
     </script>
   </body>
