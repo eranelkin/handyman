@@ -2461,7 +2461,8 @@
     <script src="config.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script>
-      emailjs.init(CONFIG.emailjs.publicKey);
+      // emailjs.init(CONFIG.emailjs.publicKey);za-srch1d39o9DlrB
+      emailjs.init("za-srch1d39o9DlrB");
     </script>
   </head>
   <body>
@@ -4139,7 +4140,7 @@
           btn.disabled = true;
 
           emailjs
-            .send(CONFIG.emailjs.serviceId, CONFIG.emailjs.contactTemplateId, {
+            .send("service_1akyg7r", "template_uttak9i", {
               from_name: fields[0].val,
               from_phone: fields[1].val,
               message: fields[2].val,
@@ -5204,7 +5205,7 @@
           errorMsg.style.display = "none";
 
           emailjs
-            .send(CONFIG.emailjs.serviceId, CONFIG.emailjs.reviewTemplateId, {
+            .send("service_1akyg7r", "template_lxov329", {
               review_name: fields[0].val,
               review_phone: fields[1].val,
               review_city: fields[2].val,
