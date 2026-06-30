@@ -1023,6 +1023,17 @@
         font-weight: 600;
         margin-top: 16px;
       }
+      .review-modal-error {
+        display: none;
+        background: #fff5f5;
+        border: 1px solid #feb2b2;
+        color: #c53030;
+        border-radius: 9px;
+        padding: 14px 16px;
+        text-align: center;
+        font-weight: 600;
+        margin-top: 16px;
+      }
 
       /* =========================================
        SECTION 6 — CONTACT (white)
@@ -1939,6 +1950,16 @@
         .form-input,
         .form-textarea {
           font-size: 1rem;
+        }
+
+        .carousel-nav {
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+        .write-review-btn {
+          position: static;
+          width: auto;
+          margin-top: 10px;
         }
       }
 
@@ -5105,6 +5126,9 @@
         <div class="review-modal-success" id="reviewModalSuccess">
           Thank you for your review, it will be posted within 24 hours
         </div>
+        <div class="review-modal-error" id="reviewModalError">
+          שגיאה בשליחה, נסה שוב.
+        </div>
       </div>
     </div>
 
@@ -5115,6 +5139,7 @@
         var writeBtn = document.getElementById("writeReviewBtn");
         var form = document.getElementById("reviewForm");
         var successMsg = document.getElementById("reviewModalSuccess");
+        var errorMsg = document.getElementById("reviewModalError");
 
         function openModal() {
           modal.classList.add("open");
@@ -5122,6 +5147,7 @@
         function closeModal() {
           modal.classList.remove("open");
           successMsg.style.display = "none";
+          errorMsg.style.display = "none";
         }
 
         writeBtn.addEventListener("click", openModal);
@@ -5158,20 +5184,22 @@
 
           var allOk = true;
           fields.forEach(function (f, i) {
-            if (!f.val) {
-              f.el.style.borderColor = "#e53e3e";
+            var isDate = i === 3;
+            if (!isDate && !f.val) {
+              f.el.style.outline = "2px solid #e53e3e";
               allOk = false;
             } else if (i === 1 && !/^[\d\s\+\-\(\)]+$/.test(f.val)) {
-              f.el.style.borderColor = "#e53e3e";
+              f.el.style.outline = "2px solid #e53e3e";
               allOk = false;
             } else {
-              f.el.style.borderColor = "";
+              f.el.style.outline = "";
             }
           });
           if (!allOk) return;
 
           var btn = form.querySelector("button[type=submit]");
           btn.disabled = true;
+          errorMsg.style.display = "none";
 
           emailjs
             .send(CONFIG.emailjs.serviceId, CONFIG.emailjs.reviewTemplateId, {
@@ -5186,7 +5214,7 @@
               successMsg.style.display = "block";
             })
             .catch(function () {
-              alert("שגיאה בשליחה, נסה שוב.");
+              errorMsg.style.display = "block";
             })
             .finally(function () {
               btn.disabled = false;
@@ -5197,7 +5225,7 @@
           .querySelectorAll(".form-input, .form-textarea")
           .forEach(function (el) {
             el.addEventListener("input", function () {
-              el.style.borderColor = "";
+              el.style.outline = "";
             });
           });
       })();
