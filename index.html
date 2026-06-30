@@ -5148,6 +5148,8 @@
           modal.classList.remove("open");
           successMsg.style.display = "none";
           errorMsg.style.display = "none";
+          form.style.display = "";
+          form.reset();
         }
 
         writeBtn.addEventListener("click", openModal);
@@ -5210,7 +5212,7 @@
               review_description: fields[4].val,
             })
             .then(function () {
-              form.reset();
+              form.style.display = "none";
               successMsg.style.display = "block";
             })
             .catch(function () {
