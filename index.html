@@ -2437,9 +2437,10 @@
         }
       }
     </style>
+    <script src="config.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script>
-      emailjs.init("AFQaNihSsj7JsLa1_");
+      emailjs.init(CONFIG.emailjs.publicKey);
     </script>
   </head>
   <body>
@@ -4099,11 +4100,16 @@
           ];
 
           var allOk = true;
-          fields.forEach(function (f) {
+          fields.forEach(function (f, i) {
             if (!f.val) {
               f.el.style.borderColor = "#e53e3e";
               allOk = false;
-            } else f.el.style.borderColor = "";
+            } else if (i === 1 && !/^[\d\s\+\-\(\)]+$/.test(f.val)) {
+              f.el.style.borderColor = "#e53e3e";
+              allOk = false;
+            } else {
+              f.el.style.borderColor = "";
+            }
           });
 
           if (!allOk) return;
@@ -4112,7 +4118,7 @@
           btn.disabled = true;
 
           emailjs
-            .send("service_2qb9zej", "template_z1xd43h", {
+            .send(CONFIG.emailjs.serviceId, CONFIG.emailjs.contactTemplateId, {
               from_name: fields[0].val,
               from_phone: fields[1].val,
               message: fields[2].val,
@@ -5151,11 +5157,16 @@
           ];
 
           var allOk = true;
-          fields.forEach(function (f) {
+          fields.forEach(function (f, i) {
             if (!f.val) {
               f.el.style.borderColor = "#e53e3e";
               allOk = false;
-            } else f.el.style.borderColor = "";
+            } else if (i === 1 && !/^[\d\s\+\-\(\)]+$/.test(f.val)) {
+              f.el.style.borderColor = "#e53e3e";
+              allOk = false;
+            } else {
+              f.el.style.borderColor = "";
+            }
           });
           if (!allOk) return;
 
@@ -5163,7 +5174,7 @@
           btn.disabled = true;
 
           emailjs
-            .send("service_2qb9zej", "template_lu5876s", {
+            .send(CONFIG.emailjs.serviceId, CONFIG.emailjs.reviewTemplateId, {
               review_name: fields[0].val,
               review_phone: fields[1].val,
               review_city: fields[2].val,
